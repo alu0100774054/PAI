@@ -140,16 +140,19 @@ public class OchoReinas {
   }
 
   public void imprimirSoluciones() {
-    for (int i = 0; i < getSoluciones().size();i++){
+    for (int i = 0; i < getSoluciones().size(); i++) {
       int[] aux  = (int[]) getSoluciones().get(i);
       System.out.println("Solucion " + ( i + 1) + " : ");
-      for (int j = 0; j<aux.length;j++){
+      for (int j = 0; j < aux.length; j++){
         System.out.print("( " + ( j + 1 ) + ", " + (aux[j] + 1 ) + " ) ");
       }
       System.out.println("");
     }
   }
-  
+  public int[] obtenerSiguienteSolucion(int indice) {
+    int[] aux  = (int[]) getSoluciones().get(indice);
+    return aux;
+  }
   private boolean[] getVectorFilas() {
     return vectorFilas;
   }

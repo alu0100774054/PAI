@@ -7,7 +7,6 @@ package es.esit.ull.PAI.OchoReinas;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 public class Main extends JFrame {
@@ -27,12 +26,12 @@ public class Main extends JFrame {
     return TAMANIO;
   }
 
-  public Main(int tamanio) {
+  public Main(int tamanio) throws Exception {
     TAMANIO = tamanio;
     inicializarInterfaz();
   }
   
-  private void inicializarInterfaz() {
+  private void inicializarInterfaz() throws Exception {
     setTitle("Problema de las \"Ocho Reinas\"");
     setSize(getANCHO(), getALTO());
     setLocationRelativeTo(null);
@@ -41,7 +40,7 @@ public class Main extends JFrame {
     // Tablero de ajedrez.
     TableroGUI ajedrez = new TableroGUI(getTAMANIO());
     TitledBorder titulo;
-    titulo = BorderFactory.createTitledBorder("Solución al problema de las Ocho Reinas", TitledBorder.CENTER);
+    titulo = BorderFactory.createTitledBorder("Solución al problema de las Ocho Reinas");
     ajedrez.setBorder(titulo);
     add(ajedrez);
   }
@@ -53,7 +52,7 @@ public class Main extends JFrame {
     // Resolver el problema.
     OchoReinas problema = new OchoReinas(Integer.parseInt(args[0]));
     problema.buscarSoluciones();
-    problema.imprimirSoluciones();
+    //problema.imprimirSoluciones();
   }
 
 }
