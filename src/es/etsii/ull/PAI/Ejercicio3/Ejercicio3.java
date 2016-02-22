@@ -13,17 +13,17 @@ import java.util.Scanner;
 
 public class Ejercicio3 {
 
-	private ArrayList<Integer> array;	// Vector de elementos
+	private ArrayList<Double> array;	// Vector de elementos
 	private File fichero;				// Nombre del fichero
-	private int minimo = 0;				// Valor minimo del vector
-	private int maximo = 0;				// Valor máximo del vector
+	private Double minimo = 0.0;				// Valor minimo del vector
+	private Double maximo = 0.0;				// Valor máximo del vector
 	
 	/**
 	 * Constructor de un vector de números pasados por fichero.
 	 * @param nombreFichero Nombre del fichero que contiene los números a analizar.
 	 */
 	public Ejercicio3(File nombreFichero) {
-		array = new ArrayList<Integer>();
+		array = new ArrayList<Double>();
 		leerFichero(nombreFichero);
 	}
 	
@@ -31,7 +31,8 @@ public class Ejercicio3 {
 	 * Método que obtiene el mayor y el menor de un vector de elementos.
 	 * @return La diferencia entre el valor máximo y mínimo.
 	 */
-	public int obtenerRango() {
+	public Double obtenerRango() {
+;		minimo = array.get(0);
 		for (int i = 0; i < array.size(); i++) {
 			if (array.get(i) > maximo) {
 				maximo = array.get(i);
@@ -57,7 +58,7 @@ public class Ejercicio3 {
 			while (scan.hasNextLine()) {
 				String linea = scan.nextLine();// Guardamos la linea en un String
 				System.out.println(linea);
-				array.add(Integer.parseInt(linea));	
+				array.add(Double.parseDouble(linea));	
 			}
 		} catch (Exception ex) {
 			System.out.println("Mensaje: " + ex.getMessage());
