@@ -50,8 +50,8 @@ public class Ejercicio3 {
 		Scanner scan = null;
 		try {
 			// Leemos el contenido del fichero
-			System.out.println("Leemos el contenido del fichero " + nombreFichero);
-			scan = new Scanner(fichero);
+			System.out.println("Leemos el contenido del fichero " + nombreFichero.getPath());
+			scan = new Scanner(nombreFichero);
 
 			// Leemos linea a linea el fichero
 			while (scan.hasNextLine()) {
