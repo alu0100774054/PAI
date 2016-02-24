@@ -15,7 +15,7 @@ public class Ejercicio5 {
 	private int dia;	// Dia de nacimiento.
 	private int mes;	// Mes de nacimiento.
 	private int anyo;	// Año de nacimiento.
-	
+
 	/**
 	 * Constructor con un parámetro que indica la fecha.
 	 * @param fecha cadena con la fecha de nacimiento en formato String.
@@ -23,7 +23,7 @@ public class Ejercicio5 {
 	public Ejercicio5(String fecha) {
 		obtenerFecha(fecha);
 	}
-	
+
 	/**
 	 * Método que obtiene la diferencia entre dos fechas.
 	 * @param FechaFin Objeto para comparar la fecha.
@@ -34,7 +34,7 @@ public class Ejercicio5 {
 		int mesesPorAnio = 0;
 		int diasPorMes = 0;
 		int diasTipoMes = 0;
-		
+
 		if (mes == 2) {
 			// Febrero
 			if ((FechaFin.anyo % 4 == 0) && ((FechaFin.anyo % 100 != 0) || (FechaFin.anyo % 400 == 0)))
@@ -42,7 +42,7 @@ public class Ejercicio5 {
 				diasPorMes = 29;
 			else 
 				diasTipoMes = 28;
-			
+
 		} else if (mes <= 7) {
 			// De Enero a Julio los meses pares tienen 30 y los impares 31
 			if (mes % 2 == 0) 
@@ -56,7 +56,7 @@ public class Ejercicio5 {
 			else
 				diasTipoMes = 30;
 		}
-		
+
 		if ((anyo > FechaFin.anyo) || (anyo == FechaFin.anyo && mes > FechaFin.mes) 
 				|| (anyo == FechaFin.anyo && mes == FechaFin.mes && dia > FechaFin.dia)) {
 			System.out.println("La fecha de inicio ha de ser anterior a la fecha fin");
@@ -101,7 +101,16 @@ public class Ejercicio5 {
 			System.exit(0);
 		}
 		if (Integer.parseInt(fechaInicioDescompuesta[1]) > 0 && Integer.parseInt(fechaInicioDescompuesta[1]) <= 12) {
-			mes = Integer.parseInt(fechaInicioDescompuesta[1]);
+			if	(esBisiesto(Integer.parseInt(fechaInicioDescompuesta[1]), Integer.parseInt(fechaInicioDescompuesta[2])) && Integer.parseInt(fechaInicioDescompuesta[0]) <= 29) {
+				System.out.println(fecha + "Es bisiesto");
+				mes = Integer.parseInt(fechaInicioDescompuesta[1]);
+			} else if (esBisiesto(Integer.parseInt(fechaInicioDescompuesta[1]), Integer.parseInt(fechaInicioDescompuesta[2])) == false && Integer.parseInt(fechaInicioDescompuesta[0]) <= 28) {
+				System.out.println(fecha + "No es bisiesto");
+				mes = Integer.parseInt(fechaInicioDescompuesta[1]);
+			} else {
+				System.out.println("Compruebe que el mes de febrero, puede que sea bisiesto.");
+				System.exit(0);
+			}
 		} else {
 			System.out.println("Compruebe que los meses están comprendidos en el rango: [1-12]");
 			System.exit(0);
@@ -114,7 +123,18 @@ public class Ejercicio5 {
 		}
 		System.out.println(dia + "/" + mes + "/" + anyo);
 	}
-	
+	/**
+	 * Método que calcula si un año es bisiesto o no.
+	 * @param mes mes de la fecha
+	 * @param anio año de la fecha
+	 * @return devuelve si el año es bisiesto o no.
+	 */
+	private boolean esBisiesto(int mes, int anio) {
+		if (mes == 2 && (anio % 4 == 0))	// es bisiesto
+			return true;
+		else
+			return false;
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String fechaInicio = args[0];
