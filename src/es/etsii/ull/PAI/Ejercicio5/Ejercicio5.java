@@ -94,9 +94,24 @@ public class Ejercicio5 {
 	private void obtenerFecha(String fecha) {
 		// TODO Auto-generated method stub
 		String[] fechaInicioDescompuesta = fecha.split("/");
-		dia = Integer.parseInt(fechaInicioDescompuesta[0]);
-		mes = Integer.parseInt(fechaInicioDescompuesta[1]);
-		anyo = Integer.parseInt(fechaInicioDescompuesta[2]);
+		if (Integer.parseInt(fechaInicioDescompuesta[0]) > 0 && Integer.parseInt(fechaInicioDescompuesta[0]) <= 31) {
+			dia = Integer.parseInt(fechaInicioDescompuesta[0]);
+		} else {
+			System.out.println("Compruebe que los dias están comprendidos en el rango: [1-31]");
+			System.exit(0);
+		}
+		if (Integer.parseInt(fechaInicioDescompuesta[1]) > 0 && Integer.parseInt(fechaInicioDescompuesta[1]) <= 12) {
+			mes = Integer.parseInt(fechaInicioDescompuesta[1]);
+		} else {
+			System.out.println("Compruebe que los meses están comprendidos en el rango: [1-12]");
+			System.exit(0);
+		}
+		if (Integer.parseInt(fechaInicioDescompuesta[2]) > 0) {
+			anyo = Integer.parseInt(fechaInicioDescompuesta[2]);
+		} else {
+			System.out.println("Compruebe que el año no sea negativo.");
+			System.exit(0);
+		}
 		System.out.println(dia + "/" + mes + "/" + anyo);
 	}
 	
