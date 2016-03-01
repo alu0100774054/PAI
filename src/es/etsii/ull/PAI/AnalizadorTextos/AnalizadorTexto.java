@@ -15,7 +15,7 @@ public class AnalizadorTexto {
 		ocurrencias = new ArrayList<Integer>();
 		cargarFichero(nombrefichero);
 	}
-
+	
 	public ArrayList<String> getPalabras() {
 		return palabras;
 	}
@@ -24,63 +24,12 @@ public class AnalizadorTexto {
 		return ocurrencias;
 	}
 
-	public String getPalabras(int indice) {
-		return palabras.get(indice);
-	}
-
-	public Integer getOcurrencias(int indice) {
-		return ocurrencias.get(indice);
-	}
-
 	public void setPalabras(ArrayList<String> palabras) {
 		this.palabras = palabras;
 	}
 
 	public void setOcurrencias(ArrayList<Integer> ocurrencias) {
 		this.ocurrencias = ocurrencias;
-	}
-	
-	public void setOcurrencias(int indice, int contador) {
-		ocurrencias.set(indice, contador);
-	}
-
-	public void setPalabras(String palabra) {
-		palabras.add(palabra);
-	}
-
-	private void analizar(String palabra) {
-		// TODO Auto-generated method stub
-		if (getPalabras().size() == 0) {
-			System.out.println("... Iniciando analisis ...");
-			setPalabras(palabra);
-		} else {
-			encontrarOcurrencia(palabra);
-		}
-	}
-
-	private void actualizarOcurrencia(int indice) {
-		// TODO Auto-generated method stub
-		int incrementado = getOcurrencias(indice) + 1;
-		setOcurrencias(indice, incrementado);
-	}
-
-	private void encontrarOcurrencia(String palabra) {
-		// TODO Auto-generated method stub
-		for (int i = 0; i < getPalabras().size(); i++) {
-			System.out.println("analizando " + getPalabras(i) + " y " + palabra);
-			if (getPalabras(i).equals(palabra)) {
-				//actualizarOcurrencia(i);
-				break;
-			}
-		}
-		setPalabras(palabra);
-		//actualizarOcurrencia(getPalabras().size());
-	}
-
-	@Override
-	public String toString() {
-		// falta
-		return "AnalizadorTexto [palabras=" + palabras + ", ocurrencias=" + ocurrencias + "]";
 	}
 
 	private void cargarFichero(String nombrefichero) throws FileNotFoundException {
@@ -101,9 +50,31 @@ public class AnalizadorTexto {
 		}
 	}
 
+	private void analizar(String token) {
+		// TODO Auto-generated method stub
+		if (palabras.size() == 0) {
+			palabras.add(token);
+			ocurrencias.add(0, 1);
+		} else if (palabras.size() > 0) {
+			int posicion = encontrarOcurrencia(token);
+			ocurrencias.add(posicion, ocurrencias.get(posicion) + 1);
+		}
+	}
+
+	private int encontrarOcurrencia(String token) {
+		// TODO Auto-generated method stub
+		for (int i = 0;i < palabras.size();i++) {
+			if (palabras.get(i).equals(token)) {
+				return i;
+			}
+		}
+		palabras.add(token);
+		return palabras.size();
+	}
+
 	public void recorrerPalabras() {
 		for (int i = 0;i < getPalabras().size(); i++)
-			System.out.println("Palabra[" + i + "] = " + getPalabras(i));
+			System.out.println("Palabra[" + i + "] = " + palabras.get(i));
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {
