@@ -1,0 +1,16 @@
+caso sin parametros: 
+
+	Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 0
+	at es.etsii.ull.PAI.Excepciones.Log1.main(Log1.java:7)
+	
+caso con parametro diferente:
+
+	Exception in thread "main" java.lang.NumberFormatException: For input string: "pepe"
+	at sun.misc.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:2043)
+	at sun.misc.FloatingDecimal.parseDouble(FloatingDecimal.java:110)
+	at java.lang.Double.parseDouble(Double.java:538)
+	at es.etsii.ull.PAI.Excepciones.Log1.main(Log1.java:7)
+	
+respuesta a que habia que añadir:
+
+	Hay que declarar que tipo de excepcion lanza el main "throws WrongParameterException"
