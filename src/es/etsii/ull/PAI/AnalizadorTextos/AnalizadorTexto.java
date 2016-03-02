@@ -43,10 +43,10 @@ public class AnalizadorTexto {
       while (st.hasMoreTokens()) { 
         String token = st.nextToken();
         System.out.println("analizando ---> " + token);
-        if (encontrarOcurrencia(token)) {
-          incrementarOcurrencia(token);
+        if (encontrarOcurrencia(token.toLowerCase())) {
+          incrementarOcurrencia(token.toLowerCase());
         } else {
-          mapaPalabras.put(token, 1);
+          mapaPalabras.put(token.toLowerCase(), 1);
         }
       }
     }
@@ -67,7 +67,7 @@ public class AnalizadorTexto {
    */
   private boolean encontrarOcurrencia(String token) {
     // TODO Auto-generated method stub
-    if (mapaPalabras.containsKey(token)) {
+    if (mapaPalabras.containsKey(token.toLowerCase())) {
       return true;
     } else {
       return false;

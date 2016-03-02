@@ -14,8 +14,6 @@ public class Log2 {
       }
       double aDouble = Double.parseDouble(args[0]);
       System.out.println(Math.log(aDouble)); 
-    } catch (WrongParameterException e4) {
-      System.out.println("Se lanza una excepcion del tipo: " + e4);
     } catch (ArrayIndexOutOfBoundsException e) {
       System.out.println("Se lanza una excepcion del tipo: " + e);
     } catch (NumberFormatException e2) {
