@@ -1,5 +1,9 @@
+/**
+ * Crea objetos serpiente.
+ * @author erikbarretodevera
+ * @version: 18/02/2016/A
+ */
 package es.etsii.ull.PAI.Serpiente;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -7,11 +11,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.sun.corba.se.impl.encoding.OSFCodeSetRegistry.Entry;
-/**
- * Crea objetos serpiente.
- * @author erikbarretodevera
- * @version: 18/02/2016/A
- */
+
 public class Serpiente {
   private static int numSerpientes;
   private int idSerpiente;

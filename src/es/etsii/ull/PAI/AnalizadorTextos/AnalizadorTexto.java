@@ -1,5 +1,11 @@
+/**
+ * Cuenta el número de ocurrencias de cada palabra a medida que analiza un texto
+ * pasado por fichero de entrada, mostrando finalmente cada palabra y el número 
+ * de veces que se repite.
+ * @author erikbarretodevera
+ * @version: 18/02/2016/A
+ */
 package es.etsii.ull.PAI.AnalizadorTextos;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -10,12 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.StringTokenizer;
-/**
- * Cuenta el número de ocurrencias de cada palabra a medida que analiza un testo pasado por fichero de entrada,
- * mostrando finalmente cada palabra y e número de veces que se repite.
- * @author erikbarretodevera
- * @version: 18/02/2016/A
- */
+
 public class AnalizadorTexto {
   Map<String, Integer> mapaPalabras;
   public AnalizadorTexto(String nombrefichero) throws FileNotFoundException {
@@ -24,8 +25,8 @@ public class AnalizadorTexto {
     cargarFichero(nombrefichero);
   }
   /**
-   * Lee el texto a partir de un fichero que se le pasa por parámetro y para cada palabra llama al método que 
-   * analiza la ocurrencia.
+   * Lee el texto a partir de un fichero que se le pasa por parámetro y para 
+   * cada palabra llama al método que analiza la ocurrencia.
    * @param nombrefichero Fichero desde el que queremos leer el texto.
    * @throws FileNotFoundException Excepcion si no encuentra el fichero.
    */
@@ -60,8 +61,8 @@ public class AnalizadorTexto {
     mapaPalabras.put(token, mapaPalabras.get(token) + 1);
   }
   /**
-   * Busca si la palabra que se le pasa ya ha sido analizada y en tal caso incrementar 
-   * el número de ocurrencias
+   * Busca si la palabra que se le pasa ya ha sido analizada y en tal caso 
+   * incrementar el número de ocurrencias
    * @param token Palabra que queremos analizar.
    * @return Si se repite la palabra.
    */

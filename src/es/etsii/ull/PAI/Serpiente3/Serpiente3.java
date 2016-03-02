@@ -1,15 +1,15 @@
-package es.etsii.ull.PAI.Serpiente3;
-
-import java.util.Iterator;
-import java.util.Map;
-import java.util.TreeMap;
-
-import es.etsii.ull.PAI.Serpiente.Serpiente;
 /**
  * Crea objetos serpiente.
  * @author erikbarretodevera
  * @version: 18/02/2016/A
  */
+package es.etsii.ull.PAI.Serpiente3;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
+
+import es.etsii.ull.PAI.Serpiente.Serpiente;
+
 public class Serpiente3 {
   private static int numSerpientes;
   private int idSerpiente;

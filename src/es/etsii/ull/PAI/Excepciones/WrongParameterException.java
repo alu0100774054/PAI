@@ -1,12 +1,13 @@
-package es.etsii.ull.PAI.Excepciones;
-import java.lang.Exception;
-import java.lang.Throwable;
 /**
- * Maneja excepciones de cualquier tipo que herede de java.lang.Exception y pasa la excepción a la clase Exception
- * para que maneje la excepcion generada.
+ * Maneja excepciones de cualquier tipo que herede de java.lang.Exception y 
+ * pasa la excepción a la clase Exception para que maneje la excepcion generada.
  * @author erikbarretodevera
  * @version: 18/02/2016/A
  */
+package es.etsii.ull.PAI.Excepciones;
+import java.lang.Exception;
+import java.lang.Throwable;
+
 public class WrongParameterException extends Exception {
   private static final long serialVersionUID = 1L;
   /**

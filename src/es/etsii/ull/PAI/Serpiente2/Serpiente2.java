@@ -1,14 +1,14 @@
-package es.etsii.ull.PAI.Serpiente2;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import es.etsii.ull.PAI.Serpiente.Serpiente;
 /**
  * Crea objetos serpiente.
  * @author erikbarretodevera
  * @version: 18/02/2016/A
  */
+package es.etsii.ull.PAI.Serpiente2;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import es.etsii.ull.PAI.Serpiente.Serpiente;
+
 public class Serpiente2 {
   private static int numSerpientes;
   private int idSerpiente;
