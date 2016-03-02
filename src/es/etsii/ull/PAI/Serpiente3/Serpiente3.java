@@ -5,25 +5,40 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import es.etsii.ull.PAI.Serpiente.Serpiente;
-
+/**
+ * Crea objetos serpiente.
+ * @author erikbarretodevera
+ * @version: 18/02/2016/A
+ */
 public class Serpiente3 {
   private static int numSerpientes;
   private int idSerpiente;
-
+  /**
+   * Constructor.
+   */
   public Serpiente3() {
     // TODO Auto-generated constructor stub
     numSerpientes++;
     setIdSerpiente(numSerpientes);
   }
-
+  /**
+   * Obtiene el número que identifica que serpiente es.
+   * @return Número de la serpiente.
+   */
   public int getIdSerpiente() {
     return idSerpiente;
   }
-
+  /**
+   * Establece cual es el número de serpiente que la identifica.
+   * @param idSerpiente Número que la identifica.
+   */
   public void setIdSerpiente(int idSerpiente) {
     this.idSerpiente = idSerpiente;
   }
-
+  /**
+   * Obtiene el número que identifica que serpiente es.
+   * @return Número de la serpiente.
+   */
   public int reptar() {
     return getIdSerpiente();
   }

@@ -1,5 +1,10 @@
 package es.etsii.ull.PAI.Excepciones;
-
+/**
+ * Lanza excepciones que puedan causar la operacion de calcular el logaritmo de un numero
+ * o errores que puedan producirse al pasarle un parámetro.
+ * @author erikbarretodevera
+ * @version: 18/02/2016/A
+ */
 public class Log2 {
 
   public static void main(String[] args) throws WrongParameterException {
@@ -10,17 +15,13 @@ public class Log2 {
       double aDouble = Double.parseDouble(args[0]);
       System.out.println(Math.log(aDouble)); 
     } catch (WrongParameterException e4) {
-      // TODO: handle exception
       System.out.println("Se lanza una excepcion del tipo: " + e4);
     } catch (ArrayIndexOutOfBoundsException e) {
-      // TODO: handle exception
       System.out.println("Se lanza una excepcion del tipo: " + e);
     } catch (NumberFormatException e2) {
-      // TODO: handle exception
       //System.out.println("Se lanza una excepcion del tipo: " + e2);
       throw new WrongParameterException(e2);
     } catch (IllegalArgumentException e3) {
-      // TODO: handle exception
       System.out.println("Se lanza una excepcion del tipo: " + e3);
     }
   }
