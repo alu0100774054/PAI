@@ -1,5 +1,12 @@
 package es.etsii.ull.PAI.Ejercicio1;
+import java.awt.FlowLayout;
 import java.util.Scanner;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
 * Este programa es capaz de ejecutar las operaciones básicas siguientes sobre numeros racionales:
@@ -11,13 +18,17 @@ import java.util.Scanner;
 * @version: 20/02/2016/A
 */
 
-public class Racional {
+public class Racional extends JFrame {
 	
 	private int num;				// Numerador
 	private int den;				// Denominador
 	Racional simplificado;			// Fracción simplificada
 	private Scanner sc;				// Scanner para leer valor desde teclado
-	
+	private final static int ANCHO = 200;
+	private final static int ALTO = 200;
+	private JPanel numero1;
+	private JPanel numero2;
+	private JPanel solucion;
 	/**
      * Constructor para un número Racional
      */
@@ -32,6 +43,27 @@ public class Racional {
      * @param denIn denominador
      */
 	public Racional(int numIn, int denIn) {
+		new JFrame("Suma de racionales");
+		setSize(ANCHO, ALTO);
+		setLayout(new FlowLayout());
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		numero1 = new JPanel();
+		numero2 = new JPanel();
+		solucion = new JPanel();
+		JLabel labelNumero1 = new JLabel("Número 1: ");
+		JLabel labelNumero2 = new JLabel("Número 2: ");
+		JLabel sol = new JLabel("Solución: ");
+		JTextField numeroInput1 = new JTextField("Introduce el primer número");
+		JTextField numeroInput2 = new JTextField("Introduce el segundo número");
+		numero1.add(labelNumero1);
+		numero1.add(numeroInput1);
+		numero1.add(labelNumero2);
+		numero1.add(numeroInput2);
+		add(numero1);
+		add(numero2);
+		add(new JButton("Calcular"));
+		add(sol);
 		if (denIn == 0){
 			comprobarDenominador(denIn);
 			num = numIn;
