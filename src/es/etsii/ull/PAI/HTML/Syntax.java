@@ -2,6 +2,8 @@ package es.etsii.ull.PAI.HTML;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -9,6 +11,8 @@ public class Syntax {
   private final String ENCABEZADO = "<!DOCTYPE html>";
   private final String INICIO_HEAD = "<head>";
   private final String FIN_HEAD = "</head>";
+  private final String HTML = "<html>";
+  private final String FIN_HTML = "</html>";
   private final String FORMATO = "<meta charset=\"utf-8\">";
   private final String INICIO_BODY = "<body>";
   private final String FIN_BODY = "</body>";
@@ -24,6 +28,17 @@ public class Syntax {
   private final String FIN_COLOR_RESERVADAS = "</font>";
   private final String FIN_COLOR_COMENTARIO = "</font>";
   private final String FIN_COLOR_LITERALES = "</font>";
+  private final String INICIO_CODIGO = "<code>";
+  private final String FIN_CODIGO = "</code>";
+  private final String INICIO_PARRAFO = "<p>";
+  private final String FIN_PARRAFO = "</p>";
+  private final String INICIO_H1 = "<h1>";
+  private final String FIN_H1 = "</h1>";
+  private final String INICIO_BR = "<br>";
+  private final String FIN_BR = "</br>";
+  private final String INICIO_PRE = "<pre>";
+  private final String FIN_PRE = "</pre>";
+  private final String TAB = "&nbsp;&nbsp;&nbsp;";
   private final String[] RESERVADAS = {"abstract", "double", "int", "strictfp", 
       "boolean", "else", "interface", "super", "break", "extends", "long", 
       "switch", "byte", "final", "native", "synchronized", "case", "finally", 
@@ -118,25 +133,45 @@ public class Syntax {
     return RESERVADAS;
   }
 
-  public Syntax(String nombreFichero) throws FileNotFoundException {
+  public Syntax(String nombreFichero) throws IOException {
     setNombreFicheroHTML(nombreFichero);
     lecturaFichero(getNombreFicheroHTML());
   }
 
-  private void lecturaFichero(String nombreFicheroHTML2) throws FileNotFoundException {
+  private void lecturaFichero(String nombreFicheroHTML2) throws IOException {
     // Fichero del que queremos leer
     File fichero = new File(getNombreFicheroHTML());
     Scanner s = null;
+    FileWriter fSalida = new FileWriter("index.html");
+    fSalida.write(ENCABEZADO);
+    fSalida.write(HTML);
+    fSalida.write(INICIO_HEAD);
+    fSalida.write(FORMATO);
+    fSalida.write(INICIO_TITTLE);
+    fSalida.write("Programacion de Aplicaciones Interactivas");
+    fSalida.write(FIN_TITTLE);
+    fSalida.write(FIN_HEAD);
+    fSalida.write(INICIO_BODY);
+    fSalida.write(INICIO_H1);
+    fSalida.write("Programacion de Aplicaciones Interactivas");
+    fSalida.write(FIN_H1);
+    fSalida.write(INICIO_PARRAFO);
+    
     // Leemos el contenido del fichero
     System.out.println("... Leemos el contenido del fichero ...\n");
     s = new Scanner(fichero);
+    fSalida.write(INICIO_PRE);
     while (s.hasNextLine()) {
-      String linea = s.nextLine();  // Guardamos la linea en un String
-      StringTokenizer st = new StringTokenizer(linea, "\",;:.?()[]/\\ ");
-      while (st.hasMoreTokens()) { 
-        String token = st.nextToken();
-        System.out.println("leyendo ---> " + token);
-      }
+      String linea = s.nextLine();
+      System.out.println(linea);
+      fSalida.write(linea);
+      fSalida.write(INICIO_BR);
+      
     }
+    fSalida.write(FIN_PRE);
+    fSalida.write(FIN_PARRAFO);
+    fSalida.write(FIN_BODY);
+    fSalida.write(FIN_HTML);
+    fSalida.close();
   }
 }
