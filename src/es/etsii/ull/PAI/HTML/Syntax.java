@@ -1,3 +1,9 @@
+/**
+ * Programa que lee un fichero y crea un fichero de salida index.html
+ * que va a permitir visualizar el contenido en un navegador.
+ * @author: Erik Andreas Barreto de Vera
+ * @version: 06/03/2016/A
+ */
 package es.etsii.ull.PAI.HTML;
 
 import java.io.File;
@@ -132,12 +138,20 @@ public class Syntax {
   public String[] getRESERVADAS() {
     return RESERVADAS;
   }
-
+  /**
+   * Constructor del fichero.
+   * @param nombreFichero Nombre del fichero donde está el texto.
+   * @throws IOException Excepción lanzada por fallo de entrada y salida.
+   */
   public Syntax(String nombreFichero) throws IOException {
     setNombreFicheroHTML(nombreFichero);
     lecturaFichero(getNombreFicheroHTML());
   }
-
+  /**
+   * Lee el fichero dado y escribe en el fichero de salida el código.
+   * @param nombreFicheroHTML2 Nombre del fichero donde está el texto.
+   * @throws IOException Excepción lanzada por fallo de entrada y salida.
+   */
   private void lecturaFichero(String nombreFicheroHTML2) throws IOException {
     // Fichero del que queremos leer
     File fichero = new File(getNombreFicheroHTML());

@@ -1,5 +1,9 @@
+/**
+ * Programa que lee un texto y muestra en orden alfabéticamente inverso las palabras que no están duplicadas.
+ * @author: Erik Andreas Barreto de Vera
+ * @version: 06/03/2016/A
+ */
 package es.etsii.ull.PAI.AnalizadorTextos;
-
 import java.awt.FlowLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,7 +27,11 @@ public class AnalizadorTextoInverso extends JFrame {
 	TreeMap<String, Integer> mapaPalabras;
 	private final static int ANCHO = 200;
 	private final static int ALTO = 200;
-	
+	/**
+	 * Constructor del analizador.
+	 * @param nombrefichero Nombre del fichero donde está el contenido.
+	 * @throws FileNotFoundException Excepción lanzada en caso de fallo de E/S.
+	 */
 	public AnalizadorTextoInverso(String nombrefichero) throws FileNotFoundException {
 		new JFrame("Analizador");
 		setSize(ANCHO, ALTO);
@@ -37,6 +45,12 @@ public class AnalizadorTextoInverso extends JFrame {
 		mapaPalabras = new TreeMap<String, Integer>();
 		cargarFichero(nombrefichero);
 	}
+	/**
+   * Lee el texto a partir de un fichero que se le pasa por parámetro y para 
+   * cada palabra comprueba su duplicidad.
+   * @param nombrefichero Fichero desde el que queremos leer el texto.
+   * @throws FileNotFoundException Excepcion si no encuentra el fichero.
+   */
 	private void cargarFichero(String nombrefichero) throws FileNotFoundException {
 		File fichero = new File(nombrefichero);
 		Scanner s = null;
@@ -58,13 +72,21 @@ public class AnalizadorTextoInverso extends JFrame {
 			}
 		}
 	}
-
+	/**
+	 * Elimina las palabras duplicadas
+	 * @param token Palabra duplicada
+	 */
 	private void eliminarPalabra(String token) {
 	    // TODO Auto-generated method stub
 		System.out.println("eliminando ---> " + token);
 	    mapaPalabras.remove(token);
 	  }
-
+	/**
+   * Busca si la palabra que se le pasa ya ha sido analizada y en tal caso 
+   * incrementar el número de ocurrencias
+   * @param token Palabra que queremos analizar.
+   * @return Si se repite la palabra.
+   */
 	private boolean encontrarOcurrencia(String token) {
 		// TODO Auto-generated method stub
 		if (mapaPalabras.containsKey(token.toLowerCase())) {
@@ -73,7 +95,9 @@ public class AnalizadorTextoInverso extends JFrame {
 			return false;
 		}
 	}
-
+  /**
+   * Recorre el mapa con un iterador.
+   */
 	public void recorrerMapa() {
 		Iterator iteradorMapa = mapaPalabras.keySet().iterator();
 		System.out.println("Clave ---> Valor");
@@ -82,6 +106,10 @@ public class AnalizadorTextoInverso extends JFrame {
 			System.out.println(palabra + " ---> " + mapaPalabras.get(palabra));
 		}
 	}
+	/**
+   * Recorre el mapa con un iterador mostrando el resultado ordenado inversamente
+   * por orden alfabético.
+   */
 	public void recorrerOrdenado() {
 		Iterator iteradorMapa = mapaPalabras.keySet().iterator();
 		System.out.println("Clave ---> Valor");

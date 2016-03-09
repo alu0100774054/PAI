@@ -1,5 +1,10 @@
+/**
+ * Programa que dado un número en hexadecimal realiza su conversión y muestra 
+ * el número en formato decimal.
+ * @author: Erik Andreas Barreto de Vera
+ * @version: 06/03/2016/A
+ */
 package es.etsii.ull.PAI.Conversor;
-
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -9,11 +14,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class Conversor extends JFrame {
-	private final static int ANCHO = 200;
-	private final static int ALTO = 200;
-	private JPanel entrada;
-	private JLabel etiquetaEntrada;
-	private JTextField entradaHex;
+	private final static int ANCHO = 200;        // Ancho de la ventana.
+	private final static int ALTO = 200;         // Alto de la ventana.
+	private JPanel entrada;                      // Panel de entrada del número
+	private JLabel etiquetaEntrada;              // Etiqueta de la entrada.
+	private JTextField entradaHex;               // Entrada del número.
+	
+	/**
+	 * Constructor del conversor.
+	 * @param hex Número en formato Hexadecimal
+	 * @throws HexFormatException Excepción personalizada si el formato es inválido.
+	 */
 	public Conversor(String hex) throws HexFormatException {
 		new JFrame("Conversor");
 		setSize(ANCHO, ALTO);
@@ -30,6 +41,11 @@ public class Conversor extends JFrame {
 		
 		hex2decimal(hex);
 	}
+	/**
+	 * Método que realiza la conversión Hexadecimal-Decimal.
+	 * @param hex Número en formato Hexadecimal.
+	 * @throws HexFormatException Excepción personalizada si el formato es inválido.
+	 */
 	private void hex2decimal(String hex) throws HexFormatException {
 		int sum = 0;
 	    int nuevoNumero = 0;

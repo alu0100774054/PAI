@@ -15,20 +15,20 @@ import javax.swing.JTextField;
 * Multiplicación 
 * División
 * @author: Erik Andreas Barreto de Vera
-* @version: 20/02/2016/A
+* @version: 06/03/2016/A
 */
 
 public class Racional extends JFrame {
 	
-	private int num;				// Numerador
-	private int den;				// Denominador
-	Racional simplificado;			// Fracción simplificada
-	private Scanner sc;				// Scanner para leer valor desde teclado
-	private final static int ANCHO = 200;
-	private final static int ALTO = 200;
-	private JPanel numero1;
-	private JPanel numero2;
-	private JPanel solucion;
+	private int num;				                 // Numerador
+	private int den;				                 // Denominador
+	Racional simplificado;			             // Fracción simplificada
+	private Scanner sc;				               // Scanner para leer valor desde teclado
+	private final static int ANCHO = 200;    // Ancho de la ventana.
+	private final static int ALTO = 200;     // Alto de la ventana.
+	private JPanel numero1;                  // Primer número.
+	private JPanel numero2;                  // Segundo número.
+	private JPanel solucion;                 // Solución de la operación.
 	/**
      * Constructor para un número Racional
      */
