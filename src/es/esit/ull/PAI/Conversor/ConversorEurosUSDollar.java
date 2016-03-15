@@ -5,20 +5,20 @@
  */
 package es.esit.ull.PAI.Conversor;
 
-public class ConversorEurosUSDollar {
+public class ConversorEurosUSDollar extends Moneda {
   private final String nombreMoneda = "US$";     // Nombre de la moneda.
 	private Double euros;								                    // Cantidad en euros ingresada por el usuario.
-	private Double us_dollar;							                  // Cantidad en marco alemán ingresada por el usuario.
+	private Double conversion;							                  // Cantidad en marco alemán ingresada por el usuario.
 	private final Double factorConversion = 1.06;	         	// Factor que relaciona el cambio.
 	public ConversorEurosUSDollar(Double euros) {
 		this.euros = euros;
-		us_dollar = euros * factorConversion;
+		conversion = euros * factorConversion;
 	}
 	public Double getEuros() {
 		return euros;
 	}
 	public Double getUs_dollar() {
-		return us_dollar;
+		return conversion;
 	}
 	public Double getFactorConversion() {
 		return factorConversion;
@@ -27,10 +27,16 @@ public class ConversorEurosUSDollar {
 		this.euros = euros;
 	}
 	public void setUs_dollar(Double us_dollar) {
-		this.us_dollar = us_dollar;
+		this.conversion = us_dollar;
 	}
   public String getNombreMoneda() {
     return nombreMoneda;
+  }
+  public Double getConversion() {
+    return conversion;
+  }
+  public void setConversion(Double conversion) {
+    this.conversion = conversion;
   }
 	
 }

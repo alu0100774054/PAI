@@ -9,19 +9,16 @@ import javax.swing.JTextField;
 public class ConversorSalidaGUI extends JPanel {
   private JTextField resultados;        // Salida de texto del valor de la moneda.
   private JLabel monedaLabel;               // Monedas a mostrar.
-  public ConversorSalidaGUI(String moneda) {
+  public ConversorSalidaGUI(Moneda moneda) {
     
     iniciarComponente(moneda);
   }
-  private void iniciarComponente(String moneda) {
+  private void iniciarComponente(Moneda moneda) {
     new JPanel();
-    setLayout(new GridLayout(2, 2));
-    monedaLabel = new JLabel(moneda);
-    add(monedaLabel);
-    add(monedaLabel);
-    resultados = new JTextField();
+    setLayout(new GridLayout(1, 2));
+    resultados = new JTextField("100");
     add(resultados);
-    resultados = new JTextField();
+    resultados = new JTextField(String.valueOf(moneda.getConversion()));
     add(resultados);
   }
 }

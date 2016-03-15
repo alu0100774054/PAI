@@ -10,19 +10,18 @@ public class ConversorEntradaGUI extends JPanel {
   private JTextField entradaValor;                  // Entrada de texto del valor de la moneda.
   private JLabel etiqueta;                          // Etiqueta del panel.
   private final String etiqueta1 = "1 Euro is";
-  private String etiqueta2;                         // Etiqueta del nombre de la moneda.
-  public ConversorEntradaGUI(String moneda) {
-    etiqueta2 = moneda;
-    iniciarComponente();
+
+  public ConversorEntradaGUI(Moneda moneda) {
+    iniciarComponente(moneda);
   }
-  private void iniciarComponente() {
+  private void iniciarComponente(Moneda moneda) {
     new JPanel();
     setLayout(new GridLayout(1, 3));
-    entradaValor = new JTextField();
+    entradaValor = new JTextField(String.valueOf(moneda.getFactorConversion()));
     etiqueta = new JLabel(etiqueta1);
     add(etiqueta);
     add(entradaValor);
-    etiqueta = new JLabel(etiqueta2); //falt
+    etiqueta = new JLabel(moneda.getNombreMoneda());
     add(etiqueta);
   }
 }
