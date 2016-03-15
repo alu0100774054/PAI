@@ -6,9 +6,11 @@
 package es.esit.ull.PAI.Conversor;
 
 public class ConversorEurosLiraIT {
-	private Double euros;								// Cantidad en euros ingresada por el usuario.
-	private Double lira_IT;								// Cantidad en marco alemán ingresada por el usuario.
-	private final Double factorConversion = 1936.27;	// Factor que relaciona el cambio.
+  private final String nombreMoneda = "Lira.It";     // Nombre de la moneda.
+	private Double euros;								               // Cantidad en euros ingresada por el usuario.
+	private Double lira_IT;								             // Cantidad en marco alemán ingresada por el usuario.
+	private final Double factorConversion = 1936.27;	 // Factor que relaciona el cambio.
+	
 	public ConversorEurosLiraIT(Double euros) {
 		this.euros = euros;
 		lira_IT = euros * factorConversion;
@@ -28,5 +30,8 @@ public class ConversorEurosLiraIT {
 	public void setLira_IT(Double lira_IT) {
 		this.lira_IT = lira_IT;
 	}
+  public String getNombreMoneda() {
+    return nombreMoneda;
+  }
 	
 }

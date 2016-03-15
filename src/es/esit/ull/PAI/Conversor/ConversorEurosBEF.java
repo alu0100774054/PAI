@@ -6,9 +6,11 @@
 package es.esit.ull.PAI.Conversor;
 
 public class ConversorEurosBEF {
-	private Double euros;								// Cantidad en euros ingresada por el usuario.
-	private Double bef;									// Cantidad en marco alemán ingresada por el usuario.
+  private final String nombreMoneda = "BEF";        // Nombre de la moneda.
+	private Double euros;							             	  // Cantidad en euros ingresada por el usuario.
+	private Double bef;							             		  // Cantidad en marco alemán ingresada por el usuario.
 	private final Double factorConversion = 40.3399;	// Factor que relaciona el cambio.
+	
 	public ConversorEurosBEF(Double euros) {
 		this.euros =  euros;
 		bef = euros * factorConversion;
@@ -16,17 +18,20 @@ public class ConversorEurosBEF {
 	public Double getEuros() {
 		return euros;
 	}
-	public Double getDm() {
-		return bef;
-	}
 	public Double getFactorConversion() {
 		return factorConversion;
 	}
 	public void setEuros(Double euros) {
 		this.euros = euros;
 	}
-	public void setDm(Double dm) {
-		this.bef = dm;
-	}
+  public Double getBef() {
+    return bef;
+  }
+  public void setBef(Double bef) {
+    this.bef = bef;
+  }
+  public String getNombreMoneda() {
+    return nombreMoneda;
+  }
 	
 }

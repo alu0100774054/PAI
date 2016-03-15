@@ -6,9 +6,11 @@
 package es.esit.ull.PAI.Conversor;
 
 public class ConversorEurosFranzFranco {
-	private Double euros;								// Cantidad en euros ingresada por el usuario.
-	private Double franz_franco;						// Cantidad en marco alemán ingresada por el usuario.
-	private final Double factorConversion = 6.56;		// Factor que relaciona el cambio.
+  private final String nombreMoneda = "franz.franco";     // Nombre de la moneda.
+	private Double euros;							                     	// Cantidad en euros ingresada por el usuario.
+	private Double franz_franco;			                			// Cantidad en marco alemán ingresada por el usuario.
+	private final Double factorConversion = 6.56;		        // Factor que relaciona el cambio.
+	
 	public ConversorEurosFranzFranco(Double euros) {
 		this.euros =  euros;
 		franz_franco = euros * factorConversion;
@@ -28,5 +30,8 @@ public class ConversorEurosFranzFranco {
 	public void setFranz_franco(Double franz_franco) {
 		this.franz_franco = franz_franco;
 	}
+  public String getNombreMoneda() {
+    return nombreMoneda;
+  }
 	
 }

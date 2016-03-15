@@ -6,9 +6,11 @@
 package es.esit.ull.PAI.Conversor;
 
 public class ConversorEurosDM {
-	private Double euros;							// Cantidad en euros ingresada por el usuario.
-	private Double dm;								// Cantidad en marco alemán ingresada por el usuario.
+  private final String nombreMoneda = "DM";     // Nombre de la moneda.
+	private Double euros;						            	// Cantidad en euros ingresada por el usuario.
+	private Double dm;						             		// Cantidad en marco alemán ingresada por el usuario.
 	private final Double factorConversion = 1.96;	// Factor que relaciona el cambio.
+	
 	public ConversorEurosDM(Double euros) {
 		this.euros = euros;
 		dm = euros * factorConversion;
@@ -28,5 +30,8 @@ public class ConversorEurosDM {
 	public Double getFactorConversion() {
 		return factorConversion;
 	}
+  public String getNombreMoneda() {
+    return nombreMoneda;
+  }
 	
 }

@@ -35,14 +35,4 @@ public class Conversor extends JFrame {
 		panel = new ConversorGUI("US$");
 		add(panel);
 	}
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                Conversor conversor = new Conversor();
-                conversor.setVisible(true);
-            }
-        });
-	}
-
 }
