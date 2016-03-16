@@ -8,9 +8,13 @@ package es.esit.ull.PAI.Conversor;
 public class ConversorEurosIR extends Moneda {
   private final String nombreMoneda = "franz.franco";     // Nombre de la moneda. 
 	private Double euros;						                     		// Cantidad en euros ingresada por el usuario.
-	private Double conversion;									                    // Cantidad en marco alemán ingresada por el usuario.
+	private Double conversion;									            // Cantidad en marco alemán ingresada por el usuario.
 	private final Double factorConversion = 0.79;	         	// Factor que relaciona el cambio.
 	
+	/**
+   * Constructor del conversor de dos monedas.
+   * @param euros Cantidad de euros que queremos convertir.
+   */
 	public ConversorEurosIR(Double euros) {
 		this.euros = euros;
 		conversion = euros * factorConversion;

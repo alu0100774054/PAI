@@ -6,10 +6,15 @@
 package es.esit.ull.PAI.Conversor;
 
 public class ConversorEurosUSDollar extends Moneda {
-  private final String nombreMoneda = "US$";     // Nombre de la moneda.
-	private Double euros;								                    // Cantidad en euros ingresada por el usuario.
-	private Double conversion;							                  // Cantidad en marco alemán ingresada por el usuario.
-	private final Double factorConversion = 1.06;	         	// Factor que relaciona el cambio.
+  private final String nombreMoneda = "US$";      // Nombre de la moneda.
+	private Double euros;								            // Cantidad en euros ingresada por el usuario.
+	private Double conversion;					            // Cantidad en marco alemán ingresada por el usuario.
+	private final Double factorConversion = 1.06;		// Factor que relaciona el cambio.
+	
+	/**
+   * Constructor del conversor de dos monedas.
+   * @param euros Cantidad de euros que queremos convertir.
+   */
 	public ConversorEurosUSDollar(Double euros) {
 		this.euros = euros;
 		conversion = euros * factorConversion;

@@ -1,3 +1,8 @@
+/**
+ * Programa que lee un texto y muestra en orden alfabéticamente inverso las palabras que no están duplicadas.
+ * @author: Erik Andreas Barreto de Vera
+ * @version: 06/03/2016/A
+ */
 package es.esit.ull.PAI.Conversor;
 
 import java.awt.EventQueue;

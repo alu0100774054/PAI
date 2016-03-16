@@ -8,9 +8,13 @@ package es.esit.ull.PAI.Conversor;
 public class ConversorEurosBEF extends Moneda {
   private final String nombreMoneda = "BEF";        // Nombre de la moneda.
 	private Double euros;							             	  // Cantidad en euros ingresada por el usuario.
-	private Double conversion;							             		  // Cantidad en marco alemán ingresada por el usuario.
+	private Double conversion;							          // Cantidad en marco alemán ingresada por el usuario.
 	private final Double factorConversion = 40.3399;	// Factor que relaciona el cambio.
 	
+	/**
+   * Constructor del conversor de dos monedas.
+   * @param euros Cantidad de euros que queremos convertir.
+   */
 	public ConversorEurosBEF(Double euros) {
 		this.euros =  euros;
 		conversion = euros * factorConversion;
