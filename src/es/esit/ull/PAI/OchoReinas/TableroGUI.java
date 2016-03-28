@@ -82,7 +82,28 @@ public class TableroGUI extends JPanel implements KeyListener, ActionListener {
 		System.out.println("");
 	}
 	private void resetearTablero() {
-		tablero.equals(tableroMolde);
+	  System.out.println("reseteando tablero");
+	  for (int i = 0; i < getTAMANIO(); i++) {
+	    for (int j = 0; j < getTAMANIO(); j++) {
+	    System.out.print(" " + tablero[i][j] + " ");
+	    }
+	    System.out.println("");
+    }
+	  
+	  for (int i = 0; i < getTAMANIO(); i++) {
+      for (int j = 0; j < getTAMANIO(); j++) {
+        tablero[i][j] = tableroMolde[i][j];
+      }
+      System.out.println("");
+    }
+      
+		System.out.println("");
+		for (int i = 0; i < getTAMANIO(); i++) {
+      for (int j = 0; j < getTAMANIO(); j++) {
+      System.out.print(" " + tablero[i][j] + " ");
+      }
+      System.out.println("");
+    }
 	}
 	private CasillaReinaGUI getCasillaTablero3() {
 		return casillaTablero3;
@@ -143,6 +164,7 @@ public class TableroGUI extends JPanel implements KeyListener, ActionListener {
 
 	private void actualizar() throws Exception {
 		resetearTablero();
+	  //setTablero(tableroMolde);
 		solucionar();
 		removeAll();
 		validate();
