@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class OchoReinas {
   private final int VALOR_DEFECTO = -1;                      // Valor por defecto si 
-  // no hay solución aún.
+                                                             // no hay solución aún.
   private final int TAMANIO_TABLERO;                         // Tamaño del problema.
   private boolean[] vectorFilas;                             // Vector con las filas.
   private boolean[] vectorColumnas;                          // Vector con las columnas.
@@ -113,7 +113,8 @@ public class OchoReinas {
   }
 
   private boolean solucionNueva(int[] nuevaSolucion) {
-    if (nuevaSolucion[0] == VALOR_DEFECTO) return false;
+    if (nuevaSolucion[0] == VALOR_DEFECTO) 
+      return false;
     boolean esNueva = true;
     int i = 0;
     while (i < getSoluciones().size() && esNueva) { 

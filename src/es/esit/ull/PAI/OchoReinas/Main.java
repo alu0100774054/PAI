@@ -5,8 +5,13 @@
  */
 package es.esit.ull.PAI.OchoReinas;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridLayout;
+
 import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 public class Main extends JFrame {
@@ -36,6 +41,7 @@ public class Main extends JFrame {
     setSize(getANCHO(), getALTO());
     setLocationRelativeTo(null);
     setDefaultCloseOperation(EXIT_ON_CLOSE); 
+    setLayout(new GridLayout(1, 2));
     
     // Tablero de ajedrez.
     TableroGUI ajedrez = new TableroGUI(getTAMANIO());
@@ -43,6 +49,20 @@ public class Main extends JFrame {
     titulo = BorderFactory.createTitledBorder("Solución al problema de las Ocho Reinas");
     ajedrez.setBorder(titulo);
     add(ajedrez);
+    
+    JPanel panelAuxiliar = new JPanel();
+    panelAuxiliar.setLayout(new GridLayout(3, 1));
+    // Instrucciones.
+    Instrucciones instrucciones = new Instrucciones();
+    panelAuxiliar.add(instrucciones);
+    
+    // Temporizador.
+    Temporizador temporizador = new Temporizador();
+    panelAuxiliar.add(temporizador);
+    
+    //añadimos al frame.
+    add(panelAuxiliar);
+    pack();
   }
   
   public static void main(String[] args) throws Exception {

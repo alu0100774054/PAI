@@ -11,29 +11,36 @@ import javax.swing.JPanel;
 public class CasillaReinaGUI extends JPanel {
   private Image fondoReina;  // Fondo de la casilla de la reina;
   
-  public CasillaReinaGUI() {
+  public CasillaReinaGUI(int fondo) {
     new JPanel();
-    inicializarComponente();
+    inicializarComponente(fondo);
   }
 
-  private void inicializarComponente() {
-    loadImage();
+  private void inicializarComponente(int fondo) {
+    loadImage(fondo);
     
     int ancho = getFondoBlanco().getWidth(this);
     int alto =  getFondoBlanco().getHeight(this);
     setPreferredSize(new Dimension(ancho, alto)); 
   }
 
-  private void loadImage() {
-    ImageIcon fondo = new ImageIcon("images/reina.png");
-    fondoReina = fondo.getImage(); 
+  private void loadImage(int colorFondo) {
+    if (colorFondo % 2 == 0) {
+      ImageIcon fondo = new ImageIcon("images/casillaBlancaReina.png");
+      fondoReina = fondo.getImage();
+    } else {
+      ImageIcon fondo = new ImageIcon("images/casillaNegraReina.png");
+      fondoReina = fondo.getImage();
+    } 
   }
   
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     g.setColor(Color.cyan);
-    g.drawImage(fondoReina, 0, 0, null);
+    int x = (this.getWidth() - fondoReina.getWidth(null)) / 2;
+    int y = (this.getHeight() - fondoReina.getHeight(null)) / 2;
+    g.drawImage(fondoReina, x, y, null);
     
   }
 
