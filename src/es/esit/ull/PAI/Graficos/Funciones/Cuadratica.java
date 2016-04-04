@@ -3,7 +3,7 @@
  * @author: Erik Andreas Barreto de Vera
  * @version: 04/04/2016
  */
-package es.esit.ull.PAI.Graficos;
+package es.esit.ull.PAI.Graficos.Funciones;
 
 import java.awt.Color;
 import java.awt.Graphics;
