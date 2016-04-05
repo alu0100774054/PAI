@@ -1,5 +1,5 @@
 /**
- * Programa que dibuje en una ventana la representación gráfica de una función.
+ * Programa que dibuje en una ventana la representación gráfica de una cara.
  * @author: Erik Andreas Barreto de Vera
  * @version: 04/04/2016
  */
@@ -21,22 +21,33 @@ public class Cara extends JPanel {
   private final int SEPARACION_BOCA_LATERAL = 30;     // Distancia del centro de la boca.
   private final int SEPARACION_BOCA_SUR = 40;     // Distancia del centro de la boca.
   
+  /**
+   * Constructor de la Cara
+   */
   public Cara() {
     iniciarComponentes();
   }
-
+  
+  /**
+   * Método que incializa los componentes.
+   */
   private void iniciarComponentes() {
     setBackground(Color.white);
     setBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(), 
         BorderFactory.createLoweredBevelBorder()));
   }
-  
+  /**
+   * Método que se encarga de dibujar la función.
+   */
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     dibujarCara(g);
   }
-
+  /**
+   * Método que dibuja la cara.
+   * @param g Parámetro que maneja los gráficos.
+   */
   private void dibujarCara(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
     g2d.setPaint(Color.black);
@@ -44,7 +55,10 @@ public class Cara extends JPanel {
     pintarOjos(g2d);
     pintarBoca(g2d);
   }
-
+  /**
+   * Método que pinta la boca.
+   * @param g2d Parámetro que maneja los gráficos.
+   */
   private void pintarBoca(Graphics2D g2d) {
     g2d.setColor(Color.red);
     g2d.drawLine((this.getWidth() / 2) - getSEPARACION_BOCA_LATERAL(),
@@ -52,7 +66,10 @@ public class Cara extends JPanel {
         (this.getWidth() / 2) + getSEPARACION_BOCA_LATERAL(), 
         (this.getHeight() / 2) + getSEPARACION_BOCA_NORTE());
   }
-
+  /**
+   * Método que pinta los ojos.
+   * @param g2d Parámetro que maneja los gráficos.
+   */
   private void pintarOjos(Graphics2D g2d) {
     g2d.setColor(Color.blue);
     // Dibujar ojo
@@ -71,7 +88,10 @@ public class Cara extends JPanel {
         getDIMENSION_CARA(), 
         getDIMENSION_CARA());
   }
-
+  /**
+   * Método que pinta un plano de referencia para colocar los elementos de la cara.
+   * @param g2d Parámetro que maneja los gráficos.
+   */
   private void pintarPlano(Graphics g) {
     g.setColor(Color.red);
     // basico
