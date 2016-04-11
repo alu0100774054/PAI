@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 
 public class Main extends JFrame {
   private final int ANCHO_VENTANA = 800;
-  private final int ALTO_VENTANA = 800;
+  private final int ALTO_VENTANA = 822;
   
   public Main(int desplazamieto) {
     iniciarComponentes(desplazamieto);

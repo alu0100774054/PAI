@@ -12,38 +12,49 @@ package es.esit.ull.PAI.Graficos.Bola;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 
-public class BolaMovil extends JPanel {
+public class BolaMovil extends JPanel implements KeyListener, ActionListener {
   private int desplazamiento;                 // Cantidad en pixeles que se desplaza la pelota.
   private final int DIMENSION_PELOTA = 80;
   private int posicionX;
   private int posicionY;
   private final int MITAD = 2;
-  
+  private boolean iniciar = false;             // si no hemos iniciado la pelota en el centro.
+
   public BolaMovil(int desplazamiento) {
     this.desplazamiento = desplazamiento;
     iniciarComponetes();
   }
 
   private void iniciarComponetes() {
-    setBackground(new Color(1, 255, 255));  // Azul claro.
-    
-  }
-  
-  @Override
-  protected void paintComponent(Graphics g) {
-    super.paintComponent(g);
-    dibujarPelota(g);
-    
+    setBackground(new Color(1, 255, 255));  // Azul claro. 
   }
 
-  private void dibujarPelota(Graphics g) {
-    g.setColor(Color.RED);
+  public void iniciar() {
+    setIniciar(true);
     setPosicionX((getWidth() / MITAD) - (DIMENSION_PELOTA / 2));
     setPosicionY((getHeight() / MITAD) - (DIMENSION_PELOTA / 2));
     System.out.println("(" + getPosicionX() + " " + getPosicionY() + ")");
+  }
+
+  @Override
+  protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
+    if (isIniciar() == false) {
+      iniciar();
+    }
+    dibujarPelota(g);
+  }
+
+  private void dibujarPelota(Graphics g) {
+    g.setColor(Color.RED);  
+
     g.fillOval(getPosicionX(), getPosicionY(), getDIMENSION_PELOTA(), getDIMENSION_PELOTA());
   }
 
@@ -78,6 +89,83 @@ public class BolaMovil extends JPanel {
   private int getMITAD() {
     return MITAD;
   }
+
+  private boolean isIniciar() {
+    return iniciar;
+  }
+
+  private void setIniciar(boolean iniciar) {
+    this.iniciar = iniciar;
+  }
+
+  @Override
+  public void keyTyped(KeyEvent e) {
+
+  }
+
+  @Override
+  public void keyPressed(KeyEvent e) {
+    int tecla = e.getKeyCode();
+
+    if (tecla == KeyEvent.VK_LEFT && getPosicionX() > 0) {
+      setPosicionX(getPosicionX() - getDesplazamiento());
+    }
+
+    if (tecla == KeyEvent.VK_RIGHT && getPosicionX() < (getWidth() - getDIMENSION_PELOTA())) {
+      setPosicionX(getPosicionX() + getDesplazamiento());
+    }
+
+    if (tecla == KeyEvent.VK_UP && getPosicionY() > 0) {
+      setPosicionY(getPosicionY() - getDesplazamiento());
+    }
+
+    if (tecla == KeyEvent.VK_DOWN && getPosicionY() < (getHeight() - getDIMENSION_PELOTA())) {
+      setPosicionY(getPosicionY() + getDesplazamiento());
+    }
+    System.out.println("(" + getPosicionX() + ", " + getPosicionY() + ")");
+    repaint();
+  }
+
+  @Override
+  public void keyReleased(KeyEvent e) {
   
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    repaint();
+  }
+
+  public void moverArriba() {
+    if (getPosicionY() > 0) {
+      setPosicionY(getPosicionY() - getDesplazamiento());
+    }
+    System.out.println("(" + getPosicionX() + ", " + getPosicionY() + ")");
+    repaint();
+  }
+
+  public void moverAbajo() {
+    if (getPosicionY() < (getHeight() - getDIMENSION_PELOTA())) {
+      setPosicionY(getPosicionY() + getDesplazamiento());
+    }   
+    System.out.println("(" + getPosicionX() + ", " + getPosicionY() + ")");
+    repaint();
+  }
   
+  public void moverIzquierda() {
+    if (getPosicionX() > 0) {
+      setPosicionX(getPosicionX() - getDesplazamiento());
+    }   
+    System.out.println("(" + getPosicionX() + ", " + getPosicionY() + ")");
+    repaint();
+  }
+  
+  public void moverDerecha() {
+    if (getPosicionX() < (getWidth() - getDIMENSION_PELOTA())) {
+      setPosicionX(getPosicionX() + getDesplazamiento());
+    }   
+    System.out.println("(" + getPosicionX() + ", " + getPosicionY() + ")");
+    repaint();
+  }
+
 }

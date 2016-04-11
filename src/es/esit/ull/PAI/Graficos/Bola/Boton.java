@@ -10,13 +10,29 @@
  */
 package es.esit.ull.PAI.Graficos.Bola;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.util.function.BooleanSupplier;
+
 import javax.swing.JButton;
 
-public class Boton extends JButton {
-  private String accion;  // Nombre de la acción que realiza el botón.
+import com.sun.glass.events.MouseEvent;
+
+public class Boton extends JButton implements ActionListener {
+  private String accion;          // Nombre de la acción que realiza el botón.
+  private int tipo;               // Diferencia el tipo de movimiento.
+  private final int ARRIBA = 1;
+  private final int ABAJO = 2;
+  private final int IZQUIERDA = 3;
+  private final int DERECHA = 4;
+  private BolaMovil pelota;
   
-  public Boton(String accion) {
+  public Boton(String accion, int tipo, BolaMovil pelota) {
     this.accion = accion;
+    this.tipo = tipo;
+    this.pelota = pelota;
+    addActionListener(this);
     iniciarComponentes();
   }
 
@@ -30,6 +46,46 @@ public class Boton extends JButton {
 
   private void setAccion(String accion) {
     this.accion = accion;
+  }
+
+  private int getTipo() {
+    return tipo;
+  }
+
+  private void setTipo(int tipo) {
+    this.tipo = tipo;
+  }
+
+  private int getARRIBA() {
+    return ARRIBA;
+  }
+
+  private int getABAJO() {
+    return ABAJO;
+  }
+
+  private int getIZQUIERDA() {
+    return IZQUIERDA;
+  }
+
+  private int getDERECHA() {
+    return DERECHA;
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    if (tipo == getARRIBA()) {
+      pelota.moverArriba();     
+    }
+    if (tipo == getABAJO()) {
+      pelota.moverAbajo();
+    }
+    if (tipo == getIZQUIERDA()) {
+      pelota.moverIzquierda();
+    }
+    if (tipo == getDERECHA()) {
+      pelota.moverDerecha();
+    }
   }
   
 }

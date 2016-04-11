@@ -11,54 +11,87 @@
 package es.esit.ull.PAI.Graficos.Bola;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
 
 public class ControlCentral extends JPanel {
-  private final String ARRIBA = "Arriba";
-  private final String ABAJO = "Abajo";
-  private final String DERECHA = "Derecha";
-  private final String IZQUIERDA= "Izquierda";
-  
-  public ControlCentral() {
-    iniciarComponentes();
+  private final String ARRIBA_MSG = "Arriba";
+  private final String ABAJO_MSG = "Abajo";
+  private final String DERECHA_MSG = "Derecha";
+  private final String IZQUIERDA_MSG = "Izquierda";
+  private final int ARRIBA = 1;
+  private final int ABAJO = 2;
+  private final int IZQUIERDA = 3;
+  private final int DERECHA = 4;
+
+  public ControlCentral(BolaMovil pelota) {
+    iniciarComponentes(pelota);
   }
-  private void iniciarComponentes() {
-    JPanel arriba = new JPanel();
+  private void iniciarComponentes(BolaMovil pelota) {
+    /*JPanel arriba = new JPanel();
     arriba.setLayout(new GridLayout(4, 1));
-    
+
     JPanel abajo = new JPanel();
     abajo.setLayout(new GridLayout(1, 1));
-    
+
     JPanel laterales = new JPanel();
     arriba.setLayout(new GridLayout(1, 2));
 
     setLayout(new GridLayout(3, 1));
     // Añadir botones.
-    arriba.add(new Boton(getARRIBA()), BorderLayout.NORTH);
-    abajo.add(new Boton(getABAJO()), BorderLayout.SOUTH);
-    laterales.add(new Boton(getIZQUIERDA()), BorderLayout.WEST);
-    laterales.add(new Boton(getDERECHA()), BorderLayout.EAST);    
-    
+    arriba.add(new Boton(getARRIBA_MSG(), getARRIBA(), pelota), BorderLayout.NORTH);
+    abajo.add(new Boton(getABAJO_MSG(), getABAJO(), pelota), BorderLayout.SOUTH);
+    laterales.add(new Boton(getIZQUIERDA_MSG(), getIZQUIERDA(), pelota), BorderLayout.WEST);
+    laterales.add(new Boton(getDERECHA_MSG(), getDERECHA(), pelota), BorderLayout.EAST);    
+
     add(arriba);
     add(laterales);
     add(abajo);
+     */
+
+    JPanel arriba = new JPanel();
+    JPanel abajo = new JPanel();
+    JPanel izquierda = new JPanel();
+    JPanel derecha = new JPanel();
+
+    // Añadir botones.
+    arriba.add(new Boton(getARRIBA_MSG(), getARRIBA(), pelota), BorderLayout.NORTH);
+    abajo.add(new Boton(getABAJO_MSG(), getABAJO(), pelota), BorderLayout.SOUTH);
+    izquierda.add(new Boton(getIZQUIERDA_MSG(), getIZQUIERDA(), pelota), BorderLayout.WEST);
+    derecha.add(new Boton(getDERECHA_MSG(), getDERECHA(), pelota), BorderLayout.EAST);
+    
+    add(arriba);
+    add(abajo);
+    add(izquierda);
+    add(derecha);
   }
-  private String getARRIBA() {
+  private String getARRIBA_MSG() {
+    return ARRIBA_MSG;
+  }
+  private String getABAJO_MSG() {
+    return ABAJO_MSG;
+  }
+  private String getDERECHA_MSG() {
+    return DERECHA_MSG;
+  }
+  private String getIZQUIERDA_MSG() {
+    return IZQUIERDA_MSG;
+  }
+  private int getARRIBA() {
     return ARRIBA;
   }
-
-  private String getABAJO() {
+  private int getABAJO() {
     return ABAJO;
   }
-
-  private String getDERECHA() {
+  private int getIZQUIERDA() {
+    return IZQUIERDA;
+  }
+  private int getDERECHA() {
     return DERECHA;
   }
 
-  private String getIZQUIERDA() {
-    return IZQUIERDA;
-  }
 }

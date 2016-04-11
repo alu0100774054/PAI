@@ -11,20 +11,31 @@
 package es.esit.ull.PAI.Graficos.Bola;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 
-public class Interfaz extends JPanel{
-  
+public class Interfaz extends JPanel {
+  private BolaMovil pelota;
+  private PanelDeControles controles;
   
   public Interfaz(int desplazamiento) {
+    pelota = new BolaMovil(desplazamiento);
+    addKeyListener(pelota);
+    setFocusable(true);
+    controles = new PanelDeControles(pelota);
     iniciarComponentes(desplazamiento);
   }
 
   private void iniciarComponentes(int desplazamiento) {
+    
     setLayout(new GridLayout(2, 1));
-    add(new BolaMovil(desplazamiento));
-    add(new PanelDeControles());
+    add(pelota);
+    add(controles);
   }
+
 
 }

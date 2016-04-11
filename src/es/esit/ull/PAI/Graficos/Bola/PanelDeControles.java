@@ -6,14 +6,14 @@ import javax.swing.JPanel;
 
 public class PanelDeControles extends JPanel {
 
-  public PanelDeControles() {
-    iniciarComponentes();
+  public PanelDeControles(BolaMovil pelota) {
+    iniciarComponentes(pelota);
   }
 
-  private void iniciarComponentes() {
+  private void iniciarComponentes(BolaMovil pelota) {
     setLayout(new GridLayout(1, 3));
     add(new ControlIzquierda());
-    add(new ControlCentral());
+    add(new ControlCentral(pelota));
     add(new ControlDerecha());    
   }
 }
