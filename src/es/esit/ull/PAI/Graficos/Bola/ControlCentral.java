@@ -32,8 +32,8 @@ public class ControlCentral extends JPanel {
     iniciarComponentes(pelota);
   }
   private void iniciarComponentes(BolaMovil pelota) {
-    /*JPanel arriba = new JPanel();
-    arriba.setLayout(new GridLayout(4, 1));
+    JPanel arriba = new JPanel();
+    arriba.setLayout(new GridLayout(1, 1));
 
     JPanel abajo = new JPanel();
     abajo.setLayout(new GridLayout(1, 1));
@@ -41,7 +41,6 @@ public class ControlCentral extends JPanel {
     JPanel laterales = new JPanel();
     arriba.setLayout(new GridLayout(1, 2));
 
-    setLayout(new GridLayout(3, 1));
     // Añadir botones.
     arriba.add(new Boton(getARRIBA_MSG(), getARRIBA(), pelota), BorderLayout.NORTH);
     abajo.add(new Boton(getABAJO_MSG(), getABAJO(), pelota), BorderLayout.SOUTH);
@@ -51,23 +50,6 @@ public class ControlCentral extends JPanel {
     add(arriba);
     add(laterales);
     add(abajo);
-     */
-
-    JPanel arriba = new JPanel();
-    JPanel abajo = new JPanel();
-    JPanel izquierda = new JPanel();
-    JPanel derecha = new JPanel();
-
-    // Añadir botones.
-    arriba.add(new Boton(getARRIBA_MSG(), getARRIBA(), pelota), BorderLayout.NORTH);
-    abajo.add(new Boton(getABAJO_MSG(), getABAJO(), pelota), BorderLayout.SOUTH);
-    izquierda.add(new Boton(getIZQUIERDA_MSG(), getIZQUIERDA(), pelota), BorderLayout.WEST);
-    derecha.add(new Boton(getDERECHA_MSG(), getDERECHA(), pelota), BorderLayout.EAST);
-    
-    add(arriba);
-    add(abajo);
-    add(izquierda);
-    add(derecha);
   }
   private String getARRIBA_MSG() {
     return ARRIBA_MSG;
