@@ -10,39 +10,10 @@
  */
 package es.esit.ull.PAI.Graficos.Bola;
 
-import javax.swing.JFrame;
-
-public class Main extends JFrame {
-  private final int ANCHO_VENTANA = 800;
-  private final int ALTO_VENTANA = 822;
-  
-  public Main(int desplazamieto) {
-    iniciarComponentes(desplazamieto);
-  }
-  
-  /**
-   * Método que inicializa los componentes.
-   */
-  private void iniciarComponentes(int desplazamiento) {
-    add(new Interfaz(desplazamiento));
-
-    setTitle("Mueve la pelota");
-    setLocationRelativeTo(null);
-    setSize(getANCHO_VENTANA(), getALTO_VENTANA());
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  }
-  
-  
-  private int getANCHO_VENTANA() {
-    return ANCHO_VENTANA;
-  }
-
-  private int getALTO_VENTANA() {
-    return ALTO_VENTANA;
-  }
+public class Main {
 
   public static void main(String[] args) {
-    Main programa = new Main(Integer.parseInt(args[0]));
+    Programa programa = new Programa(Integer.parseInt(args[0]));
     programa.setVisible(true);
   }
 

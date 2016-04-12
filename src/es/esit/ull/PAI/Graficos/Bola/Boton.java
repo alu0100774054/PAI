@@ -32,6 +32,18 @@ public class Boton extends JButton implements ActionListener {
     this.accion = accion;
     this.tipo = tipo;
     this.pelota = pelota;
+    if (tipo == getARRIBA()) {
+      this.setName("Arriba");
+    }
+    if (tipo == getABAJO()) {
+      setName("Abajo");
+    }
+    if (tipo == getIZQUIERDA()) {
+      setName("Izquierda");
+    }
+    if (tipo == getDERECHA()) {
+      setName("Derecha");
+    }
     addActionListener(this);
     iniciarComponentes();
   }
@@ -44,16 +56,8 @@ public class Boton extends JButton implements ActionListener {
     return accion;
   }
 
-  private void setAccion(String accion) {
-    this.accion = accion;
-  }
-
   private int getTipo() {
     return tipo;
-  }
-
-  private void setTipo(int tipo) {
-    this.tipo = tipo;
   }
 
   private int getARRIBA() {
@@ -72,19 +76,27 @@ public class Boton extends JButton implements ActionListener {
     return DERECHA;
   }
 
+  private BolaMovil getPelota() {
+    return pelota;
+  }
+
+  private void setPelota(BolaMovil pelota) {
+    this.pelota = pelota;
+  }
+
   @Override
   public void actionPerformed(ActionEvent e) {
-    if (tipo == getARRIBA()) {
-      pelota.moverArriba();     
+    if (getTipo() == getARRIBA()) {
+      getPelota().moverArriba();     
     }
-    if (tipo == getABAJO()) {
-      pelota.moverAbajo();
+    if (getTipo() == getABAJO()) {
+      getPelota().moverAbajo();
     }
-    if (tipo == getIZQUIERDA()) {
-      pelota.moverIzquierda();
+    if (getTipo() == getIZQUIERDA()) {
+      getPelota().moverIzquierda();
     }
-    if (tipo == getDERECHA()) {
-      pelota.moverDerecha();
+    if (getTipo() == getDERECHA()) {
+      getPelota().moverDerecha();
     }
   }
   

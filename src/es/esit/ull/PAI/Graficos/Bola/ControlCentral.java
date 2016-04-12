@@ -27,8 +27,16 @@ public class ControlCentral extends JPanel {
   private final int ABAJO = 2;
   private final int IZQUIERDA = 3;
   private final int DERECHA = 4;
+  private Boton arriba;
+  private Boton abajo;
+  private Boton izquierda;
+  private Boton derecha;
 
   public ControlCentral(BolaMovil pelota) {
+    arriba = new Boton(getARRIBA_MSG(), getARRIBA(), pelota);
+    abajo = new Boton(getABAJO_MSG(), getABAJO(), pelota);
+    izquierda = new Boton(getIZQUIERDA_MSG(), getIZQUIERDA(), pelota);
+    derecha = new Boton(getDERECHA_MSG(), getDERECHA(), pelota);
     iniciarComponentes(pelota);
   }
   private void iniciarComponentes(BolaMovil pelota) {
@@ -42,10 +50,10 @@ public class ControlCentral extends JPanel {
     arriba.setLayout(new GridLayout(1, 2));
 
     // Añadir botones.
-    arriba.add(new Boton(getARRIBA_MSG(), getARRIBA(), pelota), BorderLayout.NORTH);
-    abajo.add(new Boton(getABAJO_MSG(), getABAJO(), pelota), BorderLayout.SOUTH);
-    laterales.add(new Boton(getIZQUIERDA_MSG(), getIZQUIERDA(), pelota), BorderLayout.WEST);
-    laterales.add(new Boton(getDERECHA_MSG(), getDERECHA(), pelota), BorderLayout.EAST);    
+    arriba.add(getArriba(), BorderLayout.NORTH);
+    abajo.add(getAbajo(), BorderLayout.SOUTH);
+    laterales.add(getIzquierda(), BorderLayout.WEST);
+    laterales.add(getDerecha(), BorderLayout.EAST);    
 
     add(arriba);
     add(laterales);
@@ -74,6 +82,30 @@ public class ControlCentral extends JPanel {
   }
   private int getDERECHA() {
     return DERECHA;
+  }
+  private Boton getArriba() {
+    return arriba;
+  }
+  private void setArriba(Boton arriba) {
+    this.arriba = arriba;
+  }
+  private Boton getAbajo() {
+    return abajo;
+  }
+  private void setAbajo(Boton abajo) {
+    this.abajo = abajo;
+  }
+  private Boton getIzquierda() {
+    return izquierda;
+  }
+  private void setIzquierda(Boton izquierda) {
+    this.izquierda = izquierda;
+  }
+  private Boton getDerecha() {
+    return derecha;
+  }
+  private void setDerecha(Boton derecha) {
+    this.derecha = derecha;
   }
 
 }
