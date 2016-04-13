@@ -58,7 +58,7 @@ public class BolaMovil extends JPanel implements KeyListener, ActionListener {
     g.fillOval(getPosicionX(), getPosicionY(), getDIMENSION_PELOTA(), getDIMENSION_PELOTA());
   }
 
-  private int getDesplazamiento() {
+  public int getDesplazamiento() {
     return desplazamiento;
   }
 
@@ -70,7 +70,7 @@ public class BolaMovil extends JPanel implements KeyListener, ActionListener {
     return DIMENSION_PELOTA;
   }
 
-  private int getPosicionX() {
+  public int getPosicionX() {
     return posicionX;
   }
 
@@ -78,7 +78,7 @@ public class BolaMovil extends JPanel implements KeyListener, ActionListener {
     this.posicionX = posicionX;
   }
 
-  private int getPosicionY() {
+  public int getPosicionY() {
     return posicionY;
   }
 
@@ -142,6 +142,7 @@ public class BolaMovil extends JPanel implements KeyListener, ActionListener {
     }
     System.out.println("(" + getPosicionX() + ", " + getPosicionY() + ")");
     repaint();
+    setFocusable(true);
   }
 
   public void moverAbajo() {
@@ -149,7 +150,7 @@ public class BolaMovil extends JPanel implements KeyListener, ActionListener {
       setPosicionY(getPosicionY() + getDesplazamiento());
     }   
     System.out.println("(" + getPosicionX() + ", " + getPosicionY() + ")");
-    repaint();
+    repaint();setFocusable(true);
   }
   
   public void moverIzquierda() {
@@ -157,7 +158,7 @@ public class BolaMovil extends JPanel implements KeyListener, ActionListener {
       setPosicionX(getPosicionX() - getDesplazamiento());
     }   
     System.out.println("(" + getPosicionX() + ", " + getPosicionY() + ")");
-    repaint();
+    repaint();setFocusable(true);
   }
   
   public void moverDerecha() {
@@ -165,7 +166,7 @@ public class BolaMovil extends JPanel implements KeyListener, ActionListener {
       setPosicionX(getPosicionX() + getDesplazamiento());
     }   
     System.out.println("(" + getPosicionX() + ", " + getPosicionY() + ")");
-    repaint();
+    repaint();setFocusable(true);
   }
 
 }

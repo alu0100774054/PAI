@@ -34,4 +34,13 @@ public class Programa extends JFrame {
   private int getALTO_VENTANA() {
     return ALTO_VENTANA;
   }
+
+  public Interfaz getInterfaz() {
+    return interfaz;
+  }
+
+  private void setInterfaz(Interfaz interfaz) {
+    this.interfaz = interfaz;
+  }
+  
 }

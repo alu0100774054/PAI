@@ -38,5 +38,21 @@ public class Interfaz extends JPanel {
     add(controles);
   }
 
+  public BolaMovil getPelota() {
+    return pelota;
+  }
+
+  private void setPelota(BolaMovil pelota) {
+    this.pelota = pelota;
+  }
+
+  private PanelDeControles getControles() {
+    return controles;
+  }
+
+  private void setControles(PanelDeControles controles) {
+    this.controles = controles;
+  }
+
 
 }
