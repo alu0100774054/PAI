@@ -28,6 +28,12 @@ public class Boton extends JButton implements ActionListener {
   private final int DERECHA = 4;
   private BolaMovil pelota;
   
+  /**
+   * Constructor de la clase botón con las direcciones.
+   * @param accion Dirección de movimiento.
+   * @param tipo Tipo de dirección.
+   * @param pelota Pelota.
+   */
   public Boton(String accion, int tipo, BolaMovil pelota) {
     this.accion = accion;
     this.tipo = tipo;
@@ -48,6 +54,9 @@ public class Boton extends JButton implements ActionListener {
     iniciarComponentes();
   }
 
+  /**
+   * Método que inicializa los componentes.
+   */
   private void iniciarComponentes() {
     setText(getAccion());
   }
@@ -85,7 +94,7 @@ public class Boton extends JButton implements ActionListener {
   }
 
   @Override
-  public void actionPerformed(ActionEvent e) {
+  public void actionPerformed(ActionEvent e) {  
     setFocusable(false);
     if (getTipo() == getARRIBA()) {
       getPelota().moverArriba();     
@@ -99,6 +108,7 @@ public class Boton extends JButton implements ActionListener {
     if (getTipo() == getDERECHA()) {
       getPelota().moverDerecha();
     }
+    setFocusable(false);
   }
   
 }

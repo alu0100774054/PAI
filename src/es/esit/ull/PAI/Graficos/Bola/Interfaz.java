@@ -32,8 +32,7 @@ public class Interfaz extends JPanel {
 
   private void iniciarComponentes(int desplazamiento) {
     
-    setLayout(new GridLayout(2, 1));
-    
+    setLayout(new GridLayout(2, 1));    
     add(pelota);
     add(controles);
   }

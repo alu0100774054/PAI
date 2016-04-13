@@ -25,17 +25,27 @@ public class BolaMovil extends JPanel implements KeyListener, ActionListener {
   private int posicionX;
   private int posicionY;
   private final int MITAD = 2;
-  private boolean iniciar = false;             // si no hemos iniciado la pelota en el centro.
+  private boolean iniciar = false;            // si no hemos iniciado la pelota en el centro.
 
+  /**
+   * Constructor de la pelota que se mueve.
+   * @param desplazamiento Cantidad en pixeles que se desplaza la pelota.
+   */
   public BolaMovil(int desplazamiento) {
     this.desplazamiento = desplazamiento;
     iniciarComponetes();
   }
 
+  /**
+   * Método que inicializa los componentes.
+   */
   private void iniciarComponetes() {
     setBackground(new Color(1, 255, 255));  // Azul claro. 
   }
 
+  /**
+   * Método que inicia la pelota al medio.
+   */
   public void iniciar() {
     setIniciar(true);
     setPosicionX((getWidth() / MITAD) - (DIMENSION_PELOTA / 2));
@@ -43,6 +53,9 @@ public class BolaMovil extends JPanel implements KeyListener, ActionListener {
     System.out.println("(" + getPosicionX() + " " + getPosicionY() + ")");
   }
 
+  /**
+   * Método que se encarga de pintar los componentes.
+   */
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
@@ -51,7 +64,10 @@ public class BolaMovil extends JPanel implements KeyListener, ActionListener {
     }
     dibujarPelota(g);
   }
-
+  /**
+   * Método que dibuja la pelota.
+   * @param g Graficos.
+   */
   private void dibujarPelota(Graphics g) {
     g.setColor(Color.RED);  
 
@@ -107,20 +123,20 @@ public class BolaMovil extends JPanel implements KeyListener, ActionListener {
   public void keyPressed(KeyEvent e) {
     int tecla = e.getKeyCode();
 
-    if (tecla == KeyEvent.VK_LEFT && getPosicionX() > 0) {
-      setPosicionX(getPosicionX() - getDesplazamiento());
+    if (tecla == KeyEvent.VK_LEFT) {
+      moverIzquierda();
     }
 
-    if (tecla == KeyEvent.VK_RIGHT && getPosicionX() < (getWidth() - getDIMENSION_PELOTA())) {
-      setPosicionX(getPosicionX() + getDesplazamiento());
+    if (tecla == KeyEvent.VK_RIGHT) {
+      moverDerecha();
     }
 
-    if (tecla == KeyEvent.VK_UP && getPosicionY() > 0) {
-      setPosicionY(getPosicionY() - getDesplazamiento());
+    if (tecla == KeyEvent.VK_UP) {
+      moverArriba();
     }
 
-    if (tecla == KeyEvent.VK_DOWN && getPosicionY() < (getHeight() - getDIMENSION_PELOTA())) {
-      setPosicionY(getPosicionY() + getDesplazamiento());
+    if (tecla == KeyEvent.VK_DOWN) {
+      moverAbajo();
     }
     System.out.println("(" + getPosicionX() + ", " + getPosicionY() + ")");
     repaint();
@@ -150,7 +166,7 @@ public class BolaMovil extends JPanel implements KeyListener, ActionListener {
 
   public void moverAbajo() {
     if (getPosicionY() < (getHeight() - getDIMENSION_PELOTA())) {
-      if (getPosicionY() + getDesplazamiento() > getHeight()) {
+      if (getPosicionY() + getDesplazamiento() > getHeight() - getDIMENSION_PELOTA()) {
         setPosicionY(getHeight() - getDIMENSION_PELOTA());
       } else
           setPosicionY(getPosicionY() + getDesplazamiento());
@@ -172,7 +188,7 @@ public class BolaMovil extends JPanel implements KeyListener, ActionListener {
   
   public void moverDerecha() {
     if (getPosicionX() < (getWidth() - getDIMENSION_PELOTA())) {
-      if (getPosicionX() + getDesplazamiento() > getWidth()) {
+      if (getPosicionX() + getDesplazamiento() > getWidth() - getDIMENSION_PELOTA()) {
         setPosicionX(getWidth() - getDIMENSION_PELOTA());
       } else 
           setPosicionX(getPosicionX() + getDesplazamiento());

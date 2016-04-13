@@ -13,8 +13,23 @@ package es.esit.ull.PAI.Graficos.Bola;
 public class Main {
 
   public static void main(String[] args) {
+    if (args.length != 1) {
+      instrucciones();
+      System.exit(0);
+    }
     Programa programa = new Programa(Integer.parseInt(args[0]));
     programa.setVisible(true);
+  }
+  
+  /**
+   * Método que muestra el mensaje de error cuando no se introducen 
+   * bien los parámetros de entrada.
+   */
+  private static void instrucciones() {
+    System.out.println("Debe introducir correctamente el parámetro.");
+    System.out.println("Debe introducir por parámetro el número de pixeles que se va a desplazar "
+        + "en cada movimiento."
+        + "\nPara ello ejecute java <ejecutable> <parámetro>");
   }
 
 }

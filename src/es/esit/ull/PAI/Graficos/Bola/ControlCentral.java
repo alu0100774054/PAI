@@ -32,6 +32,10 @@ public class ControlCentral extends JPanel {
   private Boton izquierda;
   private Boton derecha;
 
+  /**
+   * Método que inicializa el panel con el control de las direcciones.
+   * @param pelota Pelota.
+   */
   public ControlCentral(BolaMovil pelota) {
     arriba = new Boton(getARRIBA_MSG(), getARRIBA(), pelota);
     abajo = new Boton(getABAJO_MSG(), getABAJO(), pelota);
@@ -39,6 +43,11 @@ public class ControlCentral extends JPanel {
     derecha = new Boton(getDERECHA_MSG(), getDERECHA(), pelota);
     iniciarComponentes(pelota);
   }
+  
+  /**
+   * Método que inicializa los componentes.
+   * @param pelota
+   */
   private void iniciarComponentes(BolaMovil pelota) {
     JPanel arriba = new JPanel();
     arriba.setLayout(new GridLayout(1, 1));
