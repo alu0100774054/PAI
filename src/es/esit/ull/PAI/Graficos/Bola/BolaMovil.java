@@ -138,7 +138,10 @@ public class BolaMovil extends JPanel implements KeyListener, ActionListener {
 
   public void moverArriba() {
     if (getPosicionY() > 0) {
-      setPosicionY(getPosicionY() - getDesplazamiento());
+      if ((getPosicionY() - getDesplazamiento() < 0)) {
+        setPosicionY(0);
+      } else 
+          setPosicionY(getPosicionY() - getDesplazamiento());
     }
     System.out.println("(" + getPosicionX() + ", " + getPosicionY() + ")");
     repaint();
@@ -147,7 +150,10 @@ public class BolaMovil extends JPanel implements KeyListener, ActionListener {
 
   public void moverAbajo() {
     if (getPosicionY() < (getHeight() - getDIMENSION_PELOTA())) {
-      setPosicionY(getPosicionY() + getDesplazamiento());
+      if (getPosicionY() + getDesplazamiento() > getHeight()) {
+        setPosicionY(getHeight() - getDIMENSION_PELOTA());
+      } else
+          setPosicionY(getPosicionY() + getDesplazamiento());
     }   
     System.out.println("(" + getPosicionX() + ", " + getPosicionY() + ")");
     repaint();setFocusable(true);
@@ -155,7 +161,10 @@ public class BolaMovil extends JPanel implements KeyListener, ActionListener {
   
   public void moverIzquierda() {
     if (getPosicionX() > 0) {
-      setPosicionX(getPosicionX() - getDesplazamiento());
+      if (getPosicionX() - getDesplazamiento() < 0) {
+        setPosicionX(0);
+      } else
+          setPosicionX(getPosicionX() - getDesplazamiento());
     }   
     System.out.println("(" + getPosicionX() + ", " + getPosicionY() + ")");
     repaint();setFocusable(true);
@@ -163,7 +172,10 @@ public class BolaMovil extends JPanel implements KeyListener, ActionListener {
   
   public void moverDerecha() {
     if (getPosicionX() < (getWidth() - getDIMENSION_PELOTA())) {
-      setPosicionX(getPosicionX() + getDesplazamiento());
+      if (getPosicionX() + getDesplazamiento() > getWidth()) {
+        setPosicionX(getWidth() - getDIMENSION_PELOTA());
+      } else 
+          setPosicionX(getPosicionX() + getDesplazamiento());
     }   
     System.out.println("(" + getPosicionX() + ", " + getPosicionY() + ")");
     repaint();setFocusable(true);
