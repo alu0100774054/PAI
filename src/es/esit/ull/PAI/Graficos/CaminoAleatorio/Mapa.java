@@ -4,6 +4,8 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JPanel;
 
@@ -20,6 +22,7 @@ public class Mapa extends JPanel {
   private int anchoVentana;
   private int altoVentana;
   private Color colorFondo;
+  private ArrayList<Nodo> solucion;
 
   public Mapa(int densidad) {
     this.densidad = densidad;
@@ -31,6 +34,7 @@ public class Mapa extends JPanel {
     siguienteY = 0;
     anchoVentana = 0;
     altoVentana = 0;
+    solucion = new ArrayList<Nodo>();
     establecerEstilo();
     iniciarComponentes();
   }
@@ -78,53 +82,89 @@ public class Mapa extends JPanel {
     setSiguienteX(getOrigenX());
     setSiguienteY(getOrigenY());
     System.out.println(getOrigenX() + " " + getOrigenY() + "  " + getSiguienteX() + " " + getSiguienteY());
+    getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
 
     // Calcula los caminos.
     while (getOrigenX() > 0 && getOrigenX() < getAnchoVentana() && getOrigenY() > 0 && getOrigenY() < getAltoVentana()) {
-      
+
       // Calcula la siguiente direccion.
       direccion = siguienteDireccion();
       switch (direccion) {
       // Arriba
       case 0:
-        setSiguienteY(getOrigenY() - getRelacionY());
-        System.out.println("pintando: " + getOrigenX() + " " + getOrigenY() + "  " + getSiguienteX() + " " + getSiguienteY());
-        g2.drawLine(getOrigenX(), getOrigenY(), getSiguienteX(), getSiguienteY());
-        setOrigenX(getSiguienteX());
-        setOrigenY(getSiguienteY());
-        break;
+        if (repetido(getOrigenX(), getOrigenY() - getRelacionY())) {
+          break;
+        } else {
+          setSiguienteY(getOrigenY() - getRelacionY());
+          System.out.println("pintando: " + getOrigenX() + " " + getOrigenY() + "  " + getSiguienteX() + " " + getSiguienteY());
+          g2.drawLine(getOrigenX(), getOrigenY(), getSiguienteX(), getSiguienteY());
+          setOrigenX(getSiguienteX());
+          setOrigenY(getSiguienteY());
+          getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
+          break;
+        }
+
         // Abajo
       case 1:
-        setSiguienteY(getOrigenY() + getRelacionY());
-        System.out.println("pintando: " + getOrigenX() + " " + getOrigenY() + "  " + getSiguienteX() + " " + getSiguienteY());
-        g2.drawLine(getOrigenX(), getOrigenY(), getSiguienteX(), getSiguienteY());
-        setOrigenX(getSiguienteX());
-        setOrigenY(getSiguienteY());
-        break;
+        if (repetido(getOrigenX(), getOrigenY() + getRelacionY())) {
+          break;
+        } else {
+          setSiguienteY(getOrigenY() + getRelacionY());
+          System.out.println("pintando: " + getOrigenX() + " " + getOrigenY() + "  " + getSiguienteX() + " " + getSiguienteY());
+          g2.drawLine(getOrigenX(), getOrigenY(), getSiguienteX(), getSiguienteY());
+          setOrigenX(getSiguienteX());
+          setOrigenY(getSiguienteY());
+          getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
+          break;
+        }
+
         // Derecha
       case 2:
-        setSiguienteX(getOrigenX() + getRelacionX());
-        System.out.println("pintando: " + getOrigenX() + " " + getOrigenY() + "  " + getSiguienteX() + " " + getSiguienteY());
-        g2.drawLine(getOrigenX(), getOrigenY(), getSiguienteX(), getSiguienteY());
-        setOrigenX(getSiguienteX());
-        setOrigenY(getSiguienteY());
-        break;
+        if (repetido(getOrigenX() + getRelacionX(), getOrigenY())) {
+          break;
+        } else {
+          setSiguienteX(getOrigenX() + getRelacionX());
+          System.out.println("pintando: " + getOrigenX() + " " + getOrigenY() + "  " + getSiguienteX() + " " + getSiguienteY());
+          g2.drawLine(getOrigenX(), getOrigenY(), getSiguienteX(), getSiguienteY());
+          setOrigenX(getSiguienteX());
+          setOrigenY(getSiguienteY());
+          getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
+          break;
+        }
+        
         // Izquierda
       case 3:
-        setSiguienteX(getOrigenX() - getRelacionX());
-        System.out.println("pintando: " + getOrigenX() + " " + getOrigenY() + "  " + getSiguienteX() + " " + getSiguienteY());
-        g2.drawLine(getOrigenX(), getOrigenY(), getSiguienteX(), getSiguienteY());
-        setOrigenX(getSiguienteX());
-        setOrigenY(getSiguienteY());
-        break;
+        if (repetido(getOrigenX() - getRelacionX(), getOrigenY())) {
+          break;
+        } else {
+          setSiguienteX(getOrigenX() - getRelacionX());
+          System.out.println("pintando: " + getOrigenX() + " " + getOrigenY() + "  " + getSiguienteX() + " " + getSiguienteY());
+          g2.drawLine(getOrigenX(), getOrigenY(), getSiguienteX(), getSiguienteY());
+          setOrigenX(getSiguienteX());
+          setOrigenY(getSiguienteY());
+          getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
+          break;
+        }
+        
       default:
         break;
       }
-    
+      
     }
 
     //System.out.println("pintando: " + getOrigenX() + " " + getOrigenY() + "  " + getSiguienteX() + " " + getSiguienteY());
     //g2.drawLine(getOrigenX(), getOrigenY(), getSiguienteX(), getSiguienteY());
+  }
+
+  private boolean repetido(int origenX2, int origenY2) {
+    Iterator<Nodo> iterador = getSolucion().iterator();
+    while(iterador.hasNext()){
+      Nodo elemento = iterador.next();
+      if (elemento.getCoordenadaX() == origenX2 && elemento.getCoordenadaY() == origenY2) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private void dibujarCuadricula(Graphics g) {
@@ -248,6 +288,14 @@ public class Mapa extends JPanel {
 
   private void setColorFondo(Color colorFondo) {
     this.colorFondo = colorFondo;
+  }
+
+  private ArrayList<Nodo> getSolucion() {
+    return solucion;
+  }
+
+  private void setSolucion(ArrayList<Nodo> solucion) {
+    this.solucion = solucion;
   }
 
 
