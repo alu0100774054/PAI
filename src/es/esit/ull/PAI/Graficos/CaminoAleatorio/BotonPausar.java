@@ -14,15 +14,15 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class BotonFinalizar extends JButton implements ActionListener {
-  private final String MENSAJE = "Finalizar";
+public class BotonPausar extends JButton implements ActionListener {
+  private final String MENSAJE = "Pausar";
   private Mapa mapa;
   
   /**
-   * Constructo del botón que finaliza el programa.
+   * Constructo del botón que pausa el programa.
    * @param mapa
    */
-  public BotonFinalizar(Mapa mapa) {
+  public BotonPausar(Mapa mapa) {
     this.mapa = mapa;
     setText(getMENSAJE());
     addActionListener(this);
@@ -31,7 +31,7 @@ public class BotonFinalizar extends JButton implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    mapa.parar();
+    mapa.pausar();
   }
 
   private String getMENSAJE() {

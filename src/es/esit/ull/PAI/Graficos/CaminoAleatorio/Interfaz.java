@@ -1,3 +1,12 @@
+/**
+ * PRÁCTICA 9: Camino aleatorio
+ * Programa que muestre en pantalla una ventana 
+ * con una cuadricula de tamaño X determinada por un parámetro densidad y 
+ * que genera un camino aleatorio hacia uno de los bordes.
+ * @author: Erik Andreas Barreto de Vera
+ * @email: alu0100774054@ull.edu.es
+ * @version: 20/04/2016
+ */
 package es.esit.ull.PAI.Graficos.CaminoAleatorio;
 
 import java.awt.BorderLayout;
@@ -11,11 +20,19 @@ public class Interfaz extends JFrame {
   private Menu menu;
   private Mapa mapa;
   
+  /**
+   * Método que inicializa la interfaz del programa.
+   * @param densidad Densidad de la rejilla.
+   */
   public Interfaz(int densidad) {
     iniciarInterfaz();
     iniciarComponentes(densidad);
   }
 
+  /**
+   * Método que inicializa los componentes de la interfaz.
+   * @param densidad Densidad de la rejilla.
+   */
   private void iniciarComponentes(int densidad) {
     setLayout(new BorderLayout());
     mapa = new Mapa(densidad);
@@ -24,6 +41,9 @@ public class Interfaz extends JFrame {
     add(menu, BorderLayout.PAGE_END);
   }
 
+  /**
+   * Método que inicializa la interfaz.
+   */
   private void iniciarInterfaz() {
     dimension=super.getToolkit().getScreenSize();
     super.setSize(dimension);

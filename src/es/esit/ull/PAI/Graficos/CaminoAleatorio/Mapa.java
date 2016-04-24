@@ -1,3 +1,12 @@
+/**
+ * PRÁCTICA 9: Camino aleatorio
+ * Programa que muestre en pantalla una ventana 
+ * con una cuadricula de tamaño X determinada por un parámetro densidad y 
+ * que genera un camino aleatorio hacia uno de los bordes.
+ * @author: Erik Andreas Barreto de Vera
+ * @email: alu0100774054@ull.edu.es
+ * @version: 20/04/2016
+ */
 package es.esit.ull.PAI.Graficos.CaminoAleatorio;
 
 import java.awt.BasicStroke;
@@ -11,23 +20,28 @@ import javax.swing.JPanel;
 
 public class Mapa extends JPanel implements Runnable {
   private Thread hilo;
-  private volatile boolean corriendo = false;
-  private volatile boolean parado = false;
-  private int densidad;
-  private final int DIREC_POSIBLES = 4;
+  private volatile boolean corriendo = false;     // Indica si el programa está calculando las direcciones, o no.
+  private volatile boolean parado = false;        // Indica cuando el programa termino de solucionar.
+  private int densidad;                           // Densidad de la rejilla.
+  private final int DIREC_POSIBLES = 4;           // Direcciones posibles, Norte, Este, Sur, Oeste.
+  private final int RANGO_COLORES = 256;          // Limite superior para crear números RGB.
   private int origenX;
   private int origenY;
-  private boolean iniciado = false;
-  private int relacionX;
-  private int relacionY;
+  private boolean iniciado = false;               // Permite mostrar sólo la rejilla en el paintComponent().
+  private int relacionX;                          // Cantidad de desplazamiento en el eje X.
+  private int relacionY;                          // Cantidad de desplazamiento en el eje Y.
   private int siguienteX;
   private int siguienteY;
   private int anchoVentana;
   private int altoVentana;
   private Color colorFondo;
-  private ArrayList<Nodo> solucion;
-  private int intentos;
-  
+  private ArrayList<Nodo> solucion;               // Vector con todas las coordenadas parte de la solución.
+  private int direccion;                          // Dirección a la que vamos a movernos.
+  private boolean cambiarColor = false;
+  private int gamaR;  
+  private int gamaG;
+  private int gamaB;
+
   public Mapa(int densidad) {
     this.densidad = densidad;
     origenX = 0;
@@ -38,7 +52,6 @@ public class Mapa extends JPanel implements Runnable {
     siguienteY = 0;
     anchoVentana = 0;
     altoVentana = 0;
-    intentos = 0;
     solucion = new ArrayList<Nodo>();
     establecerEstilo();
     iniciarComponentes();
@@ -53,14 +66,77 @@ public class Mapa extends JPanel implements Runnable {
 
   }
 
+  @Override
+  public void run() {
+    resolver();
+  }
+
+  public void iniciar() {
+    if (getHilo() == null && !isCorriendo()) {
+      setHilo(new Thread(this));
+      getHilo().start();
+    } else if (!isCorriendo()) {
+      getHilo().stop();
+      reiniciar();
+      getHilo().start();
+      //resolver();
+    }
+  }
+  public void resolver() {
+    corriendo = true;
+    while (isCorriendo()) {
+      resolverCamino();
+    }
+  }
+  public void reiniciar() { 
+    reiniciarDatos();
+    repaint();
+  }
+  private void reiniciarDatos() {
+    setHilo(null);
+    setIniciado(false);
+    setParado(false);
+    setCorriendo(false);
+    setOrigenX(0);
+    setOrigenY(0);
+    setRelacionX(0);
+    setRelacionY(0);
+    setSiguienteX(0);
+    setSiguienteY(0);
+    setAnchoVentana(0);
+    setAltoVentana(0);
+    setSolucion(null);
+    setSolucion(new ArrayList<Nodo>());
+  }
+
+  public void pausar() {
+    getHilo().suspend();
+  }
+
+  public void parar() {
+    getHilo().stop();
+    System.exit(0);
+  }
+
+  public void actualizar(int densidad) {
+    reiniciar();
+    setDensidad(densidad);
+    repaint();
+    iniciar();
+  }
+
   public void resolverCamino() {
-    getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
     while (!isParado()) {
       resolverSiguiente();
-      //repaint();
+      try {
+        Thread.sleep(20);
+      } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      repaint();
     }
-    //mostrarSolucion();
-    //parar();
+    repaint();
   }
 
   private void mostrarSolucion() {
@@ -73,95 +149,51 @@ public class Mapa extends JPanel implements Runnable {
   }
 
   private void resolverSiguiente() {
-
-    int direccion = siguienteDireccion();
-    
+    if (getSolucion().size() == 0) {
+      getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
+    }
     if (getOrigenX() > 0 && getOrigenX() < getAnchoVentana() && getOrigenY() > 0 && getOrigenY() < getAltoVentana()) {
-      repaint();
-      switch (direccion) {
+      setDireccion(siguienteDireccion());
+      switch (getDireccion()) {
       // Arriba
       case 0:
-        if (repetido(getOrigenX(), getOrigenY() - getRelacionY())) {
-          System.out.println("no se puede arriba");
-          setIntentos(getIntentos() + 1);
-          if (getIntentos() == 3) {
-            int aleatorio = retroceder();
-            setSiguienteX(getSolucion().get(aleatorio).getCoordenadaX());
-            setSiguienteY(getSolucion().get(aleatorio).getCoordenadaY());
-            setOrigenX(getSiguienteX());
-            setOrigenY(getSiguienteY());
-          }
-        } else {
-          setSiguienteX(getOrigenX());
-          setSiguienteY(getOrigenY() - getRelacionY());
-          setOrigenX(getSiguienteX());
-          setOrigenY(getSiguienteY());
-          System.out.println(getOrigenX() + " " + getOrigenY());
-          getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
-        }
+        setSiguienteX(getOrigenX());
+        setSiguienteY(getOrigenY() - getRelacionY());
+        setOrigenX(getSiguienteX());
+        setOrigenY(getSiguienteY());
+        System.out.println(getOrigenX() + " " + getOrigenY());
+        getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
+
         break;
       // Abajo
       case 1:
-        if (repetido(getOrigenX(), getOrigenY() + getRelacionY())) {
-          System.out.println("no se puede abajo");
-          setIntentos(getIntentos() + 1);
-          if (getIntentos() == 3) {
-            int aleatorio = retroceder();
-            setSiguienteX(getSolucion().get(aleatorio).getCoordenadaX());
-            setSiguienteY(getSolucion().get(aleatorio).getCoordenadaY());
-            setOrigenX(getSiguienteX());
-            setOrigenY(getSiguienteY());
-          }
-        } else {
-          setSiguienteX(getOrigenX());
-          setSiguienteY(getOrigenY() + getRelacionY());
-          setOrigenX(getSiguienteX());
-          setOrigenY(getSiguienteY());
-          System.out.println(getOrigenX() + " " + getOrigenY());
-          getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
-        }
+        setSiguienteX(getOrigenX());
+        setSiguienteY(getOrigenY() + getRelacionY());
+        setOrigenX(getSiguienteX());
+        setOrigenY(getSiguienteY());
+        System.out.println(getOrigenX() + " " + getOrigenY());
+        getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
+
         break;
       // Derecha
       case 2:
-        if (repetido(getOrigenX() + getRelacionX(), getOrigenY())) {
-          System.out.println("no se puede dcha");
-          setIntentos(getIntentos() + 1);
-          if (getIntentos() == 3) {
-            int aleatorio = retroceder();
-            setSiguienteX(getSolucion().get(aleatorio).getCoordenadaX());
-            setSiguienteY(getSolucion().get(aleatorio).getCoordenadaY());
-            setOrigenX(getSiguienteX());
-            setOrigenY(getSiguienteY());
-          }
-        } else {
-          setSiguienteX(getOrigenX() + getRelacionX());
-          setSiguienteY(getOrigenY());
-          setOrigenX(getSiguienteX());
-          setOrigenY(getSiguienteY());
-          System.out.println(getOrigenX() + " " + getOrigenY());
-          getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
-        }
+        setSiguienteX(getOrigenX() + getRelacionX());
+        setSiguienteY(getOrigenY());
+        setOrigenX(getSiguienteX());
+        setOrigenY(getSiguienteY());
+        System.out.println(getOrigenX() + " " + getOrigenY());
+        getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
+
         break;
       // Izquierda
       case 3:
-        if (repetido(getOrigenX() - getRelacionX(), getOrigenY())) {
-          System.out.println("no se puede izq");
-          setIntentos(getIntentos() + 1);
-          if (getIntentos() == 3) {
-            int aleatorio = retroceder();
-            setSiguienteX(getSolucion().get(aleatorio).getCoordenadaX());
-            setSiguienteY(getSolucion().get(aleatorio).getCoordenadaY());
-            setOrigenX(getSiguienteX());
-            setOrigenY(getSiguienteY());
-          }
-        } else {
-          setSiguienteX(getOrigenX() - getRelacionX());
-          setSiguienteY(getOrigenY());
-          setOrigenX(getSiguienteX());
-          setOrigenY(getSiguienteY());
-          System.out.println(getOrigenX() + " " + getOrigenY());
-          getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
-        }
+        setSiguienteX(getOrigenX() - getRelacionX());
+        setSiguienteY(getOrigenY());
+        setOrigenX(getSiguienteX());
+        setOrigenY(getSiguienteY());
+        System.out.println(getOrigenX() + " " + getOrigenY());
+        getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
+
         break;     
       default:
         System.out.println("Fallo creando dirección");
@@ -170,23 +202,13 @@ public class Mapa extends JPanel implements Runnable {
     } else {
       setParado(true);
     }
-    
+
   }
 
   private int retroceder() {
     return (int) Math.floor(Math.random() * getSolucion().size());
   }
 
-  public void iniciar() {
-    if (getHilo() == null || !isCorriendo()) {
-      setHilo(new Thread(this));
-      getHilo().start();
-
-    }
-  }
-  public void parar() {
-    setCorriendo(false);
-  }
 
   private int siguienteDireccion() {
     return (int) Math.floor(Math.random() * getDIREC_POSIBLES());
@@ -204,34 +226,15 @@ public class Mapa extends JPanel implements Runnable {
   private void dibujarSolucion(Graphics g) {
     // Pinta la cuadricula.
     dibujarCuadricula(g);
-    g.setColor(Color.RED);
+    g.setColor(new Color(gamaR, gamaG, gamaB));
     Graphics2D g2 = (Graphics2D) g;
     g2.setStroke(new BasicStroke(3));
-
     for (int i = 0; i < getSolucion().size() - 1; i++) {
-      //System.out.println("dibujando" + getSolucion().get(i).getCoordenadaX() + " " + getSolucion().get(i).getCoordenadaY() + " " + getSolucion().get(i + 1).getCoordenadaX() + " " + getSolucion().get(i + 1).getCoordenadaY());
-      try {
-        Thread.sleep(1000);
-      } catch (InterruptedException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
       g2.drawLine(getSolucion().get(i).getCoordenadaX(), 
           getSolucion().get(i).getCoordenadaY(), 
           getSolucion().get(i + 1).getCoordenadaX(), 
           getSolucion().get(i + 1).getCoordenadaY());
     }
-  }
-
-  private boolean repetido(int origenX2, int origenY2) {
-    Iterator<Nodo> iterador = getSolucion().iterator();
-    while(iterador.hasNext()){
-      Nodo elemento = iterador.next();
-      if (elemento.getCoordenadaX() == origenX2 && elemento.getCoordenadaY() == origenY2) {
-        return true;
-      }
-    }
-    return false;
   }
 
   private void dibujarCuadricula(Graphics g) {
@@ -243,7 +246,7 @@ public class Mapa extends JPanel implements Runnable {
     int incrementoY = 0;
     for (int i = 0; i <= getAnchoVentana(); i++) {
       // Guardar el centro del mapa.
-      if (i == getDensidad() / 2) {
+      if (i == getDensidad() / 2 && !isIniciado()) {
         setOrigenX(incrementoX);
         setOrigenY(incrementoY);
       }
@@ -258,11 +261,24 @@ public class Mapa extends JPanel implements Runnable {
     setIniciado(true);
   }
 
-  public void actualizar(int densidad) {
-    setDensidad(densidad);
-    setIniciado(false);
+  public void cambiarColor(Graphics gr) {
+    gamaR = (int) Math.floor(Math.random() * getRangoRGB());
+    gamaG = (int) Math.floor(Math.random() * getRangoRGB());
+    gamaB = (int) Math.floor(Math.random() * getRangoRGB());
     repaint();
   }
+  
+  private boolean repetido(int origenX2, int origenY2) {
+    Iterator<Nodo> iterador = getSolucion().iterator();
+    while(iterador.hasNext()){
+      Nodo elemento = iterador.next();
+      if (elemento.getCoordenadaX() == origenX2 && elemento.getCoordenadaY() == origenY2) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 
   private int getDensidad() {
     return densidad;
@@ -361,14 +377,6 @@ public class Mapa extends JPanel implements Runnable {
     return solucion;
   }
 
-  public int getIntentos() {
-    return intentos;
-  }
-
-  public void setIntentos(int intentos) {
-    this.intentos = intentos;
-  }
-
   private void setSolucion(ArrayList<Nodo> solucion) {
     this.solucion = solucion;
   }
@@ -397,19 +405,28 @@ public class Mapa extends JPanel implements Runnable {
     this.parado = parado;
   }
 
-  @Override
-  public void run() {
-    corriendo = true;
-    while (isCorriendo()) {
-      resolverCamino();
-      repaint();   
-      try {
-        Thread.sleep(200);
-      } catch (Exception e) {}
-
-    }
-    System.exit(0);
+  public int getDireccion() {
+    return direccion;
   }
 
+  public void setDireccion(int direccion) {
+    this.direccion = direccion;
+  }
 
+  public int getRangoRGB() {
+    return RANGO_COLORES;
+  }
+
+  public boolean isCambiarColor() {
+    return cambiarColor;
+  }
+
+  public void setCambiarColor(boolean cambiarColor) {
+    this.cambiarColor = cambiarColor;
+  }
+
+  public int getRANGO_COLORES() {
+    return RANGO_COLORES;
+  }
+  
 }

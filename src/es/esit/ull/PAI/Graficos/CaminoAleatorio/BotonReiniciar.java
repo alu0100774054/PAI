@@ -14,24 +14,25 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class BotonFinalizar extends JButton implements ActionListener {
-  private final String MENSAJE = "Finalizar";
+public class BotonReiniciar extends JButton implements ActionListener {
+  private final String MENSAJE = "Reiniciar";
   private Mapa mapa;
   
   /**
-   * Constructo del botón que finaliza el programa.
+   * Constructo del botón que reinicia el mapa
    * @param mapa
    */
-  public BotonFinalizar(Mapa mapa) {
+  public BotonReiniciar(Mapa mapa) {
     this.mapa = mapa;
-    setText(getMENSAJE());
     addActionListener(this);
     setFocusable(true);
+    setText(getMENSAJE());
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    mapa.parar();
+    System.out.println("pulsado");
+    mapa.reiniciar();
   }
 
   private String getMENSAJE() {
