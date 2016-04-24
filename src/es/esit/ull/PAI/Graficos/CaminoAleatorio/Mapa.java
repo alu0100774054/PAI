@@ -9,7 +9,10 @@ import java.util.Iterator;
 
 import javax.swing.JPanel;
 
-public class Mapa extends JPanel {
+public class Mapa extends JPanel implements Runnable {
+  private Thread hilo;
+  private volatile boolean corriendo = false;
+  private volatile boolean parado = false;
   private int densidad;
   private final int DIREC_POSIBLES = 4;
   private int origenX;
@@ -23,7 +26,8 @@ public class Mapa extends JPanel {
   private int altoVentana;
   private Color colorFondo;
   private ArrayList<Nodo> solucion;
-
+  private int intentos;
+  
   public Mapa(int densidad) {
     this.densidad = densidad;
     origenX = 0;
@@ -34,6 +38,7 @@ public class Mapa extends JPanel {
     siguienteY = 0;
     anchoVentana = 0;
     altoVentana = 0;
+    intentos = 0;
     solucion = new ArrayList<Nodo>();
     establecerEstilo();
     iniciarComponentes();
@@ -49,12 +54,138 @@ public class Mapa extends JPanel {
   }
 
   public void resolverCamino() {
-    try {
-      Thread.sleep(200);
-      repaint();
-    } catch (Exception e) {
-      // TODO: handle exception
+    getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
+    while (!isParado()) {
+      resolverSiguiente();
+      //repaint();
     }
+    //mostrarSolucion();
+    //parar();
+  }
+
+  private void mostrarSolucion() {
+    for (int i = 0; i < getSolucion().size(); i++) {
+      System.out.println("[" + i + "]= " 
+          + getSolucion().get(i).getCoordenadaX() + " " 
+          + getSolucion().get(i).getCoordenadaY());
+
+    }
+  }
+
+  private void resolverSiguiente() {
+
+    int direccion = siguienteDireccion();
+    
+    if (getOrigenX() > 0 && getOrigenX() < getAnchoVentana() && getOrigenY() > 0 && getOrigenY() < getAltoVentana()) {
+      repaint();
+      switch (direccion) {
+      // Arriba
+      case 0:
+        if (repetido(getOrigenX(), getOrigenY() - getRelacionY())) {
+          System.out.println("no se puede arriba");
+          setIntentos(getIntentos() + 1);
+          if (getIntentos() == 3) {
+            int aleatorio = retroceder();
+            setSiguienteX(getSolucion().get(aleatorio).getCoordenadaX());
+            setSiguienteY(getSolucion().get(aleatorio).getCoordenadaY());
+            setOrigenX(getSiguienteX());
+            setOrigenY(getSiguienteY());
+          }
+        } else {
+          setSiguienteX(getOrigenX());
+          setSiguienteY(getOrigenY() - getRelacionY());
+          setOrigenX(getSiguienteX());
+          setOrigenY(getSiguienteY());
+          System.out.println(getOrigenX() + " " + getOrigenY());
+          getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
+        }
+        break;
+      // Abajo
+      case 1:
+        if (repetido(getOrigenX(), getOrigenY() + getRelacionY())) {
+          System.out.println("no se puede abajo");
+          setIntentos(getIntentos() + 1);
+          if (getIntentos() == 3) {
+            int aleatorio = retroceder();
+            setSiguienteX(getSolucion().get(aleatorio).getCoordenadaX());
+            setSiguienteY(getSolucion().get(aleatorio).getCoordenadaY());
+            setOrigenX(getSiguienteX());
+            setOrigenY(getSiguienteY());
+          }
+        } else {
+          setSiguienteX(getOrigenX());
+          setSiguienteY(getOrigenY() + getRelacionY());
+          setOrigenX(getSiguienteX());
+          setOrigenY(getSiguienteY());
+          System.out.println(getOrigenX() + " " + getOrigenY());
+          getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
+        }
+        break;
+      // Derecha
+      case 2:
+        if (repetido(getOrigenX() + getRelacionX(), getOrigenY())) {
+          System.out.println("no se puede dcha");
+          setIntentos(getIntentos() + 1);
+          if (getIntentos() == 3) {
+            int aleatorio = retroceder();
+            setSiguienteX(getSolucion().get(aleatorio).getCoordenadaX());
+            setSiguienteY(getSolucion().get(aleatorio).getCoordenadaY());
+            setOrigenX(getSiguienteX());
+            setOrigenY(getSiguienteY());
+          }
+        } else {
+          setSiguienteX(getOrigenX() + getRelacionX());
+          setSiguienteY(getOrigenY());
+          setOrigenX(getSiguienteX());
+          setOrigenY(getSiguienteY());
+          System.out.println(getOrigenX() + " " + getOrigenY());
+          getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
+        }
+        break;
+      // Izquierda
+      case 3:
+        if (repetido(getOrigenX() - getRelacionX(), getOrigenY())) {
+          System.out.println("no se puede izq");
+          setIntentos(getIntentos() + 1);
+          if (getIntentos() == 3) {
+            int aleatorio = retroceder();
+            setSiguienteX(getSolucion().get(aleatorio).getCoordenadaX());
+            setSiguienteY(getSolucion().get(aleatorio).getCoordenadaY());
+            setOrigenX(getSiguienteX());
+            setOrigenY(getSiguienteY());
+          }
+        } else {
+          setSiguienteX(getOrigenX() - getRelacionX());
+          setSiguienteY(getOrigenY());
+          setOrigenX(getSiguienteX());
+          setOrigenY(getSiguienteY());
+          System.out.println(getOrigenX() + " " + getOrigenY());
+          getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
+        }
+        break;     
+      default:
+        System.out.println("Fallo creando dirección");
+        break;
+      }
+    } else {
+      setParado(true);
+    }
+    
+  }
+
+  private int retroceder() {
+    return (int) Math.floor(Math.random() * getSolucion().size());
+  }
+
+  public void iniciar() {
+    if (getHilo() == null || !isCorriendo()) {
+      setHilo(new Thread(this));
+      getHilo().start();
+
+    }
+  }
+  public void parar() {
+    setCorriendo(false);
   }
 
   private int siguienteDireccion() {
@@ -77,83 +208,19 @@ public class Mapa extends JPanel {
     Graphics2D g2 = (Graphics2D) g;
     g2.setStroke(new BasicStroke(3));
 
-    // Iniciando valores.
-    int direccion = 0;
-    setSiguienteX(getOrigenX());
-    setSiguienteY(getOrigenY());
-    System.out.println(getOrigenX() + " " + getOrigenY() + "  " + getSiguienteX() + " " + getSiguienteY());
-    getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
-
-    // Calcula los caminos.
-    while (getOrigenX() > 0 && getOrigenX() < getAnchoVentana() && getOrigenY() > 0 && getOrigenY() < getAltoVentana()) {
-
-      // Calcula la siguiente direccion.
-      direccion = siguienteDireccion();
-      switch (direccion) {
-      // Arriba
-      case 0:
-        if (repetido(getOrigenX(), getOrigenY() - getRelacionY())) {
-          break;
-        } else {
-          setSiguienteY(getOrigenY() - getRelacionY());
-          System.out.println("pintando: " + getOrigenX() + " " + getOrigenY() + "  " + getSiguienteX() + " " + getSiguienteY());
-          g2.drawLine(getOrigenX(), getOrigenY(), getSiguienteX(), getSiguienteY());
-          setOrigenX(getSiguienteX());
-          setOrigenY(getSiguienteY());
-          getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
-          break;
-        }
-
-        // Abajo
-      case 1:
-        if (repetido(getOrigenX(), getOrigenY() + getRelacionY())) {
-          break;
-        } else {
-          setSiguienteY(getOrigenY() + getRelacionY());
-          System.out.println("pintando: " + getOrigenX() + " " + getOrigenY() + "  " + getSiguienteX() + " " + getSiguienteY());
-          g2.drawLine(getOrigenX(), getOrigenY(), getSiguienteX(), getSiguienteY());
-          setOrigenX(getSiguienteX());
-          setOrigenY(getSiguienteY());
-          getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
-          break;
-        }
-
-        // Derecha
-      case 2:
-        if (repetido(getOrigenX() + getRelacionX(), getOrigenY())) {
-          break;
-        } else {
-          setSiguienteX(getOrigenX() + getRelacionX());
-          System.out.println("pintando: " + getOrigenX() + " " + getOrigenY() + "  " + getSiguienteX() + " " + getSiguienteY());
-          g2.drawLine(getOrigenX(), getOrigenY(), getSiguienteX(), getSiguienteY());
-          setOrigenX(getSiguienteX());
-          setOrigenY(getSiguienteY());
-          getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
-          break;
-        }
-        
-        // Izquierda
-      case 3:
-        if (repetido(getOrigenX() - getRelacionX(), getOrigenY())) {
-          break;
-        } else {
-          setSiguienteX(getOrigenX() - getRelacionX());
-          System.out.println("pintando: " + getOrigenX() + " " + getOrigenY() + "  " + getSiguienteX() + " " + getSiguienteY());
-          g2.drawLine(getOrigenX(), getOrigenY(), getSiguienteX(), getSiguienteY());
-          setOrigenX(getSiguienteX());
-          setOrigenY(getSiguienteY());
-          getSolucion().add(new Nodo(getOrigenX(), getOrigenY()));
-          break;
-        }
-        
-      default:
-        break;
+    for (int i = 0; i < getSolucion().size() - 1; i++) {
+      //System.out.println("dibujando" + getSolucion().get(i).getCoordenadaX() + " " + getSolucion().get(i).getCoordenadaY() + " " + getSolucion().get(i + 1).getCoordenadaX() + " " + getSolucion().get(i + 1).getCoordenadaY());
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
       }
-      
+      g2.drawLine(getSolucion().get(i).getCoordenadaX(), 
+          getSolucion().get(i).getCoordenadaY(), 
+          getSolucion().get(i + 1).getCoordenadaX(), 
+          getSolucion().get(i + 1).getCoordenadaY());
     }
-
-    //System.out.println("pintando: " + getOrigenX() + " " + getOrigenY() + "  " + getSiguienteX() + " " + getSiguienteY());
-    //g2.drawLine(getOrigenX(), getOrigenY(), getSiguienteX(), getSiguienteY());
   }
 
   private boolean repetido(int origenX2, int origenY2) {
@@ -294,8 +361,54 @@ public class Mapa extends JPanel {
     return solucion;
   }
 
+  public int getIntentos() {
+    return intentos;
+  }
+
+  public void setIntentos(int intentos) {
+    this.intentos = intentos;
+  }
+
   private void setSolucion(ArrayList<Nodo> solucion) {
     this.solucion = solucion;
+  }
+
+  public Thread getHilo() {
+    return hilo;
+  }
+
+  public void setHilo(Thread hilo) {
+    this.hilo = hilo;
+  }
+
+  public boolean isCorriendo() {
+    return corriendo;
+  }
+
+  public void setCorriendo(boolean corriendo) {
+    this.corriendo = corriendo;
+  }
+
+  public boolean isParado() {
+    return parado;
+  }
+
+  public void setParado(boolean parado) {
+    this.parado = parado;
+  }
+
+  @Override
+  public void run() {
+    corriendo = true;
+    while (isCorriendo()) {
+      resolverCamino();
+      repaint();   
+      try {
+        Thread.sleep(200);
+      } catch (Exception e) {}
+
+    }
+    System.exit(0);
   }
 
 

@@ -19,7 +19,7 @@ public class BotonIniciar extends JButton implements ActionListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     System.out.println("pulsado");
-    mapa.resolverCamino();
+    mapa.iniciar();
   }
 
   private String getMENSAJE() {

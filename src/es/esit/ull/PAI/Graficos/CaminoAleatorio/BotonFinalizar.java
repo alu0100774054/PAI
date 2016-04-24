@@ -18,7 +18,7 @@ public class BotonFinalizar extends JButton implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    //mapa.parar();
+    mapa.parar();
   }
 
   private String getMENSAJE() {

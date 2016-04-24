@@ -7,7 +7,7 @@ public class Nodo {
   
   public Nodo(int coordX, int coordY) {
     coordenadaX = coordX;
-    coordY = coordY;
+    coordenadaY = coordY;
     visitado = true;
   }
 
