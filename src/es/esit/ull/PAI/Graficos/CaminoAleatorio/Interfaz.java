@@ -37,6 +37,7 @@ public class Interfaz extends JFrame {
     setLayout(new BorderLayout());
     mapa = new Mapa(densidad);
     menu = new Menu(mapa);
+    setName("Interfaz");
     add(mapa, BorderLayout.CENTER);
     add(menu, BorderLayout.PAGE_END);
   }

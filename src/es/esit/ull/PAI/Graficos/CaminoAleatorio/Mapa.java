@@ -41,7 +41,8 @@ public class Mapa extends JPanel implements Runnable {
   private int gamaR;  
   private int gamaG;
   private int gamaB;
-
+  private boolean suspendido;                     // Indica si la ejecución está suspendida.
+  
   public Mapa(int densidad) {
     this.densidad = densidad;
     origenX = 0;
@@ -97,6 +98,7 @@ public class Mapa extends JPanel implements Runnable {
     setIniciado(false);
     setParado(false);
     setCorriendo(false);
+    setSuspendido(false);
     setOrigenX(0);
     setOrigenY(0);
     setRelacionX(0);
@@ -110,7 +112,14 @@ public class Mapa extends JPanel implements Runnable {
   }
 
   public void pausar() {
-    getHilo().suspend();
+    if (isSuspendido()) {
+      getHilo().resume();
+      setSuspendido(false);
+    } else {
+      getHilo().suspend();
+      setSuspendido(true);
+    }
+    
   }
 
   public void parar() {
@@ -428,5 +437,38 @@ public class Mapa extends JPanel implements Runnable {
   public int getRANGO_COLORES() {
     return RANGO_COLORES;
   }
+
+  public int getGamaR() {
+    return gamaR;
+  }
+
+  public void setGamaR(int gamaR) {
+    this.gamaR = gamaR;
+  }
+
+  public int getGamaG() {
+    return gamaG;
+  }
+
+  public void setGamaG(int gamaG) {
+    this.gamaG = gamaG;
+  }
+
+  public int getGamaB() {
+    return gamaB;
+  }
+
+  public void setGamaB(int gamaB) {
+    this.gamaB = gamaB;
+  }
+
+  public boolean isSuspendido() {
+    return suspendido;
+  }
+
+  public void setSuspendido(boolean suspendido) {
+    this.suspendido = suspendido;
+  }
+  
   
 }

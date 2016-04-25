@@ -24,9 +24,11 @@ public class BotonIniciar extends JButton implements ActionListener {
    */
   public BotonIniciar(Mapa mapa) {
     this.mapa = mapa;
+    setName("botonIniciar");
     addActionListener(this);
     setFocusable(true);
     setText(getMENSAJE());
+    
   }
 
   @Override

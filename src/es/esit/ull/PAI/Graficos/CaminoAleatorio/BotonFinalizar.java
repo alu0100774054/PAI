@@ -24,9 +24,11 @@ public class BotonFinalizar extends JButton implements ActionListener {
    */
   public BotonFinalizar(Mapa mapa) {
     this.mapa = mapa;
+    setName("botonFinalizar");
     setText(getMENSAJE());
     addActionListener(this);
     setFocusable(true);
+    
   }
 
   @Override

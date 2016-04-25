@@ -18,6 +18,10 @@ public class BotonCambiarColor extends JButton implements ActionListener {
   private final String MENSAJE = "Cambiar Color";
   private Mapa mapa;
   
+  /**
+   * Constructo del botón que cambia el color
+   * @param mapa
+   */
   public BotonCambiarColor(Mapa mapa) {
     this.mapa = mapa;
     setText(getMENSAJE());

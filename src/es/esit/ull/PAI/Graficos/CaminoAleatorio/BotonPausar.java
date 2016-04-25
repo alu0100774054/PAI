@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 public class BotonPausar extends JButton implements ActionListener {
-  private final String MENSAJE = "Pausar";
+  private final String MENSAJE = "Pausar/Reanudar";
   private Mapa mapa;
   
   /**
